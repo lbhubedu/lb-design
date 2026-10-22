@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   fetchCatalogIndex,
   fetchDesignSystems,
@@ -10,9 +10,10 @@ import {
   DesignSystemsCatalog,
   PromptItem,
   ActiveTab,
-  PromptCategoryMeta,
 } from './types/catalog';
 import { Header } from './components/Header';
+import { HeroSection } from './components/HeroSection';
+import { MarqueeBanner } from './components/MarqueeBanner';
 import { Sidebar } from './components/Sidebar';
 import { FilterBar } from './components/FilterBar';
 import { PromptCard } from './components/PromptCard';
@@ -20,6 +21,7 @@ import { PromptDetailModal } from './components/PromptDetailModal';
 import { DesignSystemsView } from './components/DesignSystemsView';
 import { HowToModal } from './components/HowToModal';
 import { Toast } from './components/Toast';
+import { NoiseOverlay } from './components/NoiseOverlay';
 import { Sparkles, Layers, Heart, AlertCircle, ArrowDown } from 'lucide-react';
 
 const PAGE_SIZE = 36;
@@ -50,6 +52,8 @@ export const App: React.FC = () => {
     isVisible: false,
     message: '',
   });
+
+  const catalogSectionRef = useRef<HTMLDivElement>(null);
 
   // Load initial data
   useEffect(() => {
@@ -92,9 +96,15 @@ export const App: React.FC = () => {
     const isNowFav = toggleFavoriteId(id);
     setFavorites(getFavoriteIds());
     if (isNowFav) {
-      showToast('Salvo nos Favoritos!', 'Você pode acessar na aba Meus Favoritos');
+      showToast('SALVO NOS FAVORITOS!', 'ACESSE NA ABA MEUS FAVORITOS');
     } else {
-      showToast('Removido dos Favoritos');
+      showToast('REMOVIDO DOS FAVORITOS');
+    }
+  };
+
+  const scrollToCatalog = () => {
+    if (catalogSectionRef.current) {
+      catalogSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -189,7 +199,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#09090B] text-[#FAFAFA] flex flex-col font-sans selection:bg-[#DFE104] selection:text-[#000000] relative">
+      {/* Noise Texture Overlay */}
+      <NoiseOverlay />
+
       {/* Toast Notification */}
       <Toast
         isVisible={toast.isVisible}
@@ -210,30 +223,50 @@ export const App: React.FC = () => {
         onOpenHowTo={() => setIsHowToOpen(true)}
       />
 
-      {/* Body Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Hero Section (shown on Prompts tab when no search query) */}
+      {activeTab === 'prompts' && !searchQuery && selectedCategory === 'all' && (
+        <>
+          <HeroSection
+            totalPrompts={catalog?.totalPrompts || 1134}
+            totalDesignSystems={designSystems?.total || 147}
+            onExploreClick={scrollToCatalog}
+            onOpenHowTo={() => setIsHowToOpen(true)}
+          />
+
+          {/* Continuous Kinetic Marquee */}
+          <MarqueeBanner variant="acid" speed={80} />
+        </>
+      )}
+
+      {/* Body Content - Ultra Wide Max-w-[95vw] */}
+      <main
+        ref={catalogSectionRef}
+        className="flex-1 max-w-[95vw] w-full mx-auto px-4 sm:px-6 py-8"
+      >
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-24">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600/10 text-blue-600 flex items-center justify-center mb-4 animate-bounce">
-              <Sparkles className="w-6 h-6" />
+          <div className="flex flex-col items-center justify-center py-32 border-2 border-[#3F3F46] bg-[#09090B]">
+            <div className="w-16 h-16 bg-[#DFE104] text-black flex items-center justify-center mb-6 font-black text-2xl font-heading animate-pulse">
+              SD
             </div>
-            <h2 className="text-lg font-bold text-slate-800 font-heading">
-              Carregando a Biblioteca Completa...
+            <h2 className="text-xl sm:text-2xl font-black text-[#FAFAFA] font-heading uppercase tracking-tighter">
+              CARREGANDO BIBLIOTECA COMPLETA...
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Preparando 1.134 modelos e 147 sistemas de design para você.
+            <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mt-2">
+              SINCRONIZANDO 1.134 PROMPTS E 147 SISTEMAS DE DESIGN.
             </p>
           </div>
         ) : error ? (
-          <div className="p-8 text-center max-w-md mx-auto">
-            <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-slate-800 mb-1">Ops, algo deu errado</h3>
-            <p className="text-xs text-slate-600 mb-4">{error}</p>
+          <div className="p-12 text-center max-w-lg mx-auto border-2 border-rose-800 bg-[#27272A]">
+            <AlertCircle className="w-12 h-12 text-rose-500 mx-auto mb-4" />
+            <h3 className="text-lg font-black uppercase text-white mb-2 font-heading">
+              ERRO AO CARREGAR DADOS
+            </h3>
+            <p className="text-xs font-mono text-rose-300 mb-6 uppercase">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl"
+              className="h-12 px-6 bg-[#DFE104] text-black text-xs font-black uppercase tracking-wider rounded-none cursor-pointer hover:scale-105 active:scale-95"
             >
-              Recarregar Página
+              RECARREGAR PÁGINA
             </button>
           </div>
         ) : activeTab === 'design-systems' ? (
@@ -274,43 +307,43 @@ export const App: React.FC = () => {
 
               {/* Grid of Cards */}
               {filteredItems.length === 0 ? (
-                <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                <div className="bg-[#09090B] border-2 border-[#3F3F46] p-16 text-center rounded-none">
+                  <div className="w-16 h-16 bg-[#27272A] border-2 border-[#3F3F46] text-[#A1A1AA] flex items-center justify-center mx-auto mb-4">
                     {activeTab === 'favorites' ? (
-                      <Heart className="w-6 h-6 text-rose-400" />
+                      <Heart className="w-8 h-8 text-rose-500" />
                     ) : (
-                      <Layers className="w-6 h-6" />
+                      <Layers className="w-8 h-8 text-[#DFE104]" />
                     )}
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 font-heading mb-1">
+                  <h3 className="text-xl font-black text-[#FAFAFA] font-heading uppercase tracking-tight mb-2">
                     {activeTab === 'favorites'
-                      ? 'Você ainda não salvou nenhum modelo favorito'
-                      : 'Nenhum modelo encontrado com estes filtros'}
+                      ? 'NENHUM MODELO FAVORITADO AINDA'
+                      : 'NENHUM MODELO ENCONTRADO'}
                   </h3>
-                  <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
+                  <p className="text-xs font-mono uppercase tracking-wider text-[#A1A1AA] max-w-md mx-auto mb-6">
                     {activeTab === 'favorites'
-                      ? 'Navegue pela biblioteca e clique no coração dos modelos que você mais gostar para guardá-los aqui!'
-                      : 'Tente buscar por termos mais genéricos ou clique no botão abaixo para restaurar todos os modelos.'}
+                      ? 'CLIQUE NO CORAÇÃO DE QUALQUER MODELO PARA GUARDÁ-LO NA SUA LISTA.'
+                      : 'TENTE OUTROS TERMOS DE BUSCA OU CLIQUE ABAIXO PARA VER TODOS OS PROMPTS.'}
                   </p>
                   {activeTab === 'favorites' ? (
                     <button
                       onClick={() => setActiveTab('prompts')}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition"
+                      className="h-12 px-6 bg-[#DFE104] text-black text-xs font-black uppercase tracking-wider transition rounded-none cursor-pointer hover:scale-105"
                     >
-                      Explorar Todos os Modelos
+                      EXPLORAR TODOS OS MODELOS
                     </button>
                   ) : (
                     <button
                       onClick={handleResetFilters}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition"
+                      className="h-12 px-6 bg-[#DFE104] text-black text-xs font-black uppercase tracking-wider transition rounded-none cursor-pointer hover:scale-105"
                     >
-                      Limpar Filtros e Mostrar Todos
+                      LIMPAR FILTROS // VER TODOS
                     </button>
                   )}
                 </div>
               ) : (
                 <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {pagedItems.map((item) => (
                       <PromptCard
                         key={item.id}
@@ -319,7 +352,7 @@ export const App: React.FC = () => {
                         onToggleFavorite={handleToggleFavorite}
                         onOpenDetail={setActiveModalItem}
                         onCopySuccess={(title) =>
-                          showToast('Prompt Copiado!', `Modelo "${title}" copiado com sucesso`)
+                          showToast('PROMPT COPIADO!', `"${title.toUpperCase()}" COPIADO`)
                         }
                       />
                     ))}
@@ -327,15 +360,14 @@ export const App: React.FC = () => {
 
                   {/* Load More Button */}
                   {visibleCount < filteredItems.length && (
-                    <div className="mt-8 text-center">
+                    <div className="mt-12 text-center">
                       <button
                         onClick={handleLoadMore}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 rounded-2xl text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition"
+                        className="h-16 px-10 border-2 border-[#3F3F46] bg-[#09090B] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] text-[#FAFAFA] text-xs sm:text-sm font-black uppercase tracking-widest transition-all rounded-none inline-flex items-center gap-3 cursor-pointer"
                       >
-                        <ArrowDown className="w-4 h-4 text-blue-600" />
+                        <ArrowDown className="w-5 h-5 stroke-[2.5]" />
                         <span>
-                          Carregar Mais Modelos (mostrando {pagedItems.length} de{' '}
-                          {filteredItems.length})
+                          CARREGAR MAIS MODELOS ({pagedItems.length} DE {filteredItems.length})
                         </span>
                       </button>
                     </div>
@@ -347,17 +379,20 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-16 border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
-          <p className="font-semibold text-slate-700">
-            Superdesign Brasil — Versão Pessoal Desbloqueada da Prompt Library
+      {/* Marquee before footer */}
+      <MarqueeBanner variant="dark" speed={50} direction="right" className="mt-16" />
+
+      {/* Brutalist Footer */}
+      <footer className="border-t-2 border-[#3F3F46] bg-[#09090B] py-12 text-center text-xs">
+        <div className="max-w-[95vw] mx-auto px-4 sm:px-6 space-y-3">
+          <div className="text-xl sm:text-2xl font-black uppercase tracking-tighter text-[#FAFAFA] font-heading">
+            SUPERDESIGN <span className="text-[#DFE104]">BRASIL</span> // 2026
+          </div>
+          <p className="font-mono text-[#A1A1AA] uppercase tracking-wider">
+            1.134 PROMPTS DE UI & DESIGN SYSTEMS 100% DESBLOQUEADOS // COMPATÍVEL COM LOVABLE, BOLT, V0, CHATGPT, CLAUDE E CURSOR.
           </p>
-          <p>
-            1.134 Prompts de UI, Sites e Aplicativos + 147 Sistemas de Design <code className="text-slate-700">design.md</code> 100% livres de login e bloqueios.
-          </p>
-          <p className="text-[11px] text-slate-400 pt-2">
-            Compatível com Lovable.dev, Bolt.new, v0.dev, ChatGPT, Claude e Cursor.
+          <p className="text-[10px] font-mono text-[#3F3F46] uppercase pt-2">
+            PROJETO DE USO PESSOAL CRIADO COM ENGENHARIA REVERSA & KINETIC TYPOGRAPHY.
           </p>
         </div>
       </footer>

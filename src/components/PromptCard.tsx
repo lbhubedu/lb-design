@@ -6,7 +6,6 @@ import {
   Eye,
   Laptop,
   Smartphone,
-  Sparkles,
   ExternalLink,
   Layers,
 } from 'lucide-react';
@@ -52,151 +51,138 @@ export const PromptCard: React.FC<PromptCardProps> = ({
   return (
     <div
       onClick={() => onOpenDetail(item)}
-      className="group bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer"
+      className="group relative bg-[#09090B] border-2 border-[#3F3F46] hover:border-[#DFE104] hover:bg-[#DFE104] transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer rounded-none"
     >
-      {/* Thumbnail area */}
-      <div className="relative aspect-video bg-slate-900 overflow-hidden flex items-center justify-center">
-        {item.thumbnailUrl ? (
-          item.thumbnailType === 'video' ? (
-            <video
-              src={item.thumbnailUrl}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <img
-              src={item.thumbnailUrl}
-              alt={item.titlePt || item.title}
-              loading="lazy"
-              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-            />
-          )
-        ) : (
-          <div className="w-full h-full bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 flex flex-col items-center justify-center p-4 text-center">
-            <Sparkles className="w-8 h-8 text-blue-400 mb-2 opacity-60" />
-            <span className="text-xs font-semibold text-slate-300">
-              {item.titlePt || item.title}
-            </span>
-          </div>
-        )}
-
-        {/* Gradient overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-3">
-          <span className="text-white text-xs font-medium flex items-center gap-1.5">
-            <Eye className="w-3.5 h-3.5" />
-            Clique para Testar & Personalizar
-          </span>
-          {item.previewUrl && (
-            <span className="p-1 rounded-md bg-white/20 text-white backdrop-blur-sm">
-              <ExternalLink className="w-3.5 h-3.5" />
-            </span>
-          )}
-        </div>
-
-        {/* Top badges */}
-        <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-          <span
-            className={`flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-xs ${
-              isMobile
-                ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/30'
-                : 'bg-slate-950/80 text-slate-200 border border-slate-700/50'
-            }`}
-          >
-            {isMobile ? (
-              <>
-                <Smartphone className="w-3 h-3" />
-                Mobile
-              </>
+      <div>
+        {/* Thumbnail area */}
+        <div className="relative aspect-video bg-[#000000] border-b-2 border-[#3F3F46] overflow-hidden flex items-center justify-center">
+          {item.thumbnailUrl ? (
+            item.thumbnailType === 'video' ? (
+              <video
+                src={item.thumbnailUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
             ) : (
-              <>
-                <Laptop className="w-3 h-3" />
-                Desktop
-              </>
-            )}
-          </span>
-
-          {item.themeLabelPt && (
-            <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-black/60 text-white/90 backdrop-blur-md border border-white/10">
-              {item.themeLabelPt.split('(')[0].trim()}
-            </span>
+              <img
+                src={item.thumbnailUrl}
+                alt={item.titlePt || item.title}
+                loading="lazy"
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+              />
+            )
+          ) : (
+            <div className="w-full h-full bg-[#18181B] flex flex-col items-center justify-center p-4 text-center">
+              <span className="text-3xl font-black text-[#DFE104] font-heading uppercase mb-1">
+                UI PROMPT
+              </span>
+              <span className="text-xs uppercase font-bold text-[#A1A1AA] line-clamp-1">
+                {item.titlePt || item.title}
+              </span>
+            </div>
           )}
-        </div>
 
-        {/* Favorite heart button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFavorite(item.id);
-          }}
-          className={`absolute top-2.5 right-2.5 p-1.5 rounded-xl backdrop-blur-md transition ${
-            isFavorite
-              ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
-              : 'bg-black/40 text-white/80 hover:text-white hover:bg-black/60'
-          }`}
-          title={isFavorite ? 'Remover dos favoritos' : 'Salvar nos favoritos'}
-        >
-          <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current' : ''}`} />
-        </button>
-      </div>
+          {/* Top badges */}
+          <div className="absolute top-2 left-2 flex items-center gap-1.5">
+            <span
+              className={`flex items-center gap-1 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-none ${
+                isMobile
+                  ? 'bg-emerald-500 text-black'
+                  : 'bg-black text-[#DFE104] border border-[#DFE104]'
+              }`}
+            >
+              {isMobile ? (
+                <>
+                  <Smartphone className="w-3 h-3" />
+                  MOBILE
+                </>
+              ) : (
+                <>
+                  <Laptop className="w-3 h-3" />
+                  DESKTOP
+                </>
+              )}
+            </span>
 
-      {/* Content body */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
-        <div>
-          {/* Category subtitle */}
-          <div className="flex items-center justify-between text-[11px] text-blue-600 font-semibold mb-1">
-            <span>{item.categoryLabelPt}</span>
-            {item.componentCount > 0 && (
-              <span className="text-slate-400 font-normal flex items-center gap-1">
-                <Layers className="w-3 h-3" />
-                {item.componentCount} blocos
+            {item.themeLabelPt && (
+              <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-black text-white border border-[#3F3F46]">
+                {item.themeLabelPt.split('(')[0].trim()}
               </span>
             )}
           </div>
 
-          {/* Title */}
-          <h3 className="font-heading font-bold text-slate-900 text-sm sm:text-base line-clamp-1 group-hover:text-blue-600 transition-colors">
+          {/* Favorite heart button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleFavorite(item.id);
+            }}
+            className={`absolute top-2 right-2 p-1.5 border transition rounded-none cursor-pointer ${
+              isFavorite
+                ? 'bg-rose-600 text-white border-rose-600'
+                : 'bg-black/80 text-white border-[#3F3F46] hover:bg-black hover:border-[#DFE104]'
+            }`}
+            title={isFavorite ? 'Remover dos favoritos' : 'Salvar nos favoritos'}
+          >
+            <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current' : ''}`} />
+          </button>
+        </div>
+
+        {/* Content body */}
+        <div className="p-5">
+          {/* Category subtitle */}
+          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-[#DFE104] group-hover:text-black mb-1.5 font-mono">
+            <span>{item.categoryLabelPt}</span>
+            {item.componentCount > 0 && (
+              <span className="text-[#A1A1AA] group-hover:text-black/80 flex items-center gap-1 font-mono">
+                <Layers className="w-3 h-3" />
+                {item.componentCount} BLOCOS
+              </span>
+            )}
+          </div>
+
+          {/* Title - ALL UPPERCASE */}
+          <h3 className="font-heading font-black text-lg sm:text-xl uppercase tracking-tight text-[#FAFAFA] group-hover:text-black line-clamp-1 transition-colors">
             {item.titlePt || item.title}
           </h3>
 
           {/* Layman summary */}
-          <p className="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#A1A1AA] group-hover:text-black/90 mt-2 line-clamp-2 leading-relaxed font-medium">
             {item.idealForPt || item.summaryPt || item.description}
           </p>
         </div>
+      </div>
 
-        {/* Footer Actions */}
-        <div className="pt-3.5 mt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-            {item.stats?.uses ? (
-              <span>⚡ {item.stats.uses.toLocaleString('pt-BR')} usos</span>
-            ) : (
-              <span>⚡ Modelo verificado</span>
-            )}
+      {/* Footer Actions */}
+      <div className="p-5 pt-0">
+        <div className="pt-3 border-t-2 border-[#3F3F46] group-hover:border-black flex items-center justify-between gap-2">
+          <div className="text-[11px] font-mono text-[#A1A1AA] group-hover:text-black/80 font-bold uppercase">
+            ⚡ {item.stats?.uses ? `${item.stats.uses.toLocaleString('pt-BR')} USOS` : 'VERIFICADO'}
           </div>
 
           {/* Quick Copy Button */}
           <button
             onClick={handleQuickCopy}
             disabled={loadingCopy}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
+            className={`h-10 px-4 flex items-center gap-1.5 text-xs font-black uppercase tracking-wider rounded-none transition-all cursor-pointer ${
               copied
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-slate-100 hover:bg-blue-600 text-slate-700 hover:text-white'
+                ? 'bg-black text-[#DFE104] border-2 border-black'
+                : 'bg-[#27272A] group-hover:bg-black text-white group-hover:text-[#DFE104] border-2 border-[#3F3F46] group-hover:border-black'
             }`}
             title="Copiar prompt completo para a área de transferência"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                <span>Copiado!</span>
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                <span>COPIADO!</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>Copiar Prompt</span>
+                <span>COPIAR PROMPT</span>
               </>
             )}
           </button>

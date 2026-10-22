@@ -3,7 +3,6 @@ import {
   X,
   Copy,
   Check,
-  ExternalLink,
   Laptop,
   Smartphone,
   Tablet,
@@ -12,8 +11,6 @@ import {
   Wand2,
   FileCode,
   Heart,
-  Share2,
-  Info,
   Maximize2,
 } from 'lucide-react';
 import { PromptItem, PromptDetail, AiTarget } from '../types/catalog';
@@ -99,8 +96,8 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
     await navigator.clipboard.writeText(customizedPromptText);
     setCopiedPersonalized(true);
     onCopySuccess(
-      'Prompt Personalizado Copiado!',
-      `Otimizado para ${aiTarget.toUpperCase()} em Português`
+      'PROMPT PERSONALIZADO COPIADO!',
+      `OTIMIZADO PARA ${aiTarget.toUpperCase()} EM PORTUGUÊS`
     );
     setTimeout(() => setCopiedPersonalized(false), 2200);
   };
@@ -109,34 +106,34 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
     if (!detail?.prompt) return;
     await navigator.clipboard.writeText(detail.prompt);
     setCopiedRaw(true);
-    onCopySuccess('Prompt Original Copiado!', 'Pronto para colar em qualquer IA');
+    onCopySuccess('PROMPT ORIGINAL COPIADO!', 'PRONTO PARA QUALQUER IA');
     setTimeout(() => setCopiedRaw(false), 2200);
   };
 
   const handleCopyBlock = async (key: string, content: string) => {
     await navigator.clipboard.writeText(content);
     setCopiedSection(key);
-    onCopySuccess(`Seção "${key}" copiada!`);
+    onCopySuccess(`SEÇÃO "${key.toUpperCase()}" COPIADA!`);
     setTimeout(() => setCopiedSection(null), 2000);
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 lg:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 lg:p-6 animate-in fade-in duration-200">
       <div
-        className="bg-white w-full max-w-7xl h-[94vh] rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden"
+        className="bg-[#09090B] w-full max-w-7xl h-[94vh] border-2 border-[#3F3F46] flex flex-col overflow-hidden rounded-none shadow-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Modal Navigation Header */}
-        <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between gap-4 bg-slate-50/70 shrink-0">
+        <div className="px-6 py-4 border-b-2 border-[#3F3F46] flex items-center justify-between gap-4 bg-[#09090B] shrink-0">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 shrink-0">
+            <span className="px-2.5 py-1 text-xs font-black uppercase tracking-wider bg-[#DFE104] text-black shrink-0 font-mono">
               {item.categoryLabelPt}
             </span>
             <div className="truncate">
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 font-heading truncate">
+              <h2 className="text-base sm:text-xl font-black text-[#FAFAFA] font-heading uppercase tracking-tight truncate">
                 {item.titlePt || item.title}
               </h2>
-              <p className="text-xs text-slate-500 truncate hidden sm:block">
+              <p className="text-xs text-[#A1A1AA] uppercase tracking-wider truncate hidden sm:block">
                 {item.idealForPt || item.summaryPt}
               </p>
             </div>
@@ -146,10 +143,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             {/* Favorite button */}
             <button
               onClick={() => onToggleFavorite(item.id)}
-              className={`p-2 rounded-xl border transition ${
+              className={`h-10 px-3 border-2 transition rounded-none cursor-pointer flex items-center gap-1.5 ${
                 isFavorite
-                  ? 'bg-rose-50 border-rose-200 text-rose-600'
-                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                  ? 'bg-rose-600 border-rose-600 text-white'
+                  : 'bg-[#27272A] border-[#3F3F46] text-[#FAFAFA] hover:border-[#DFE104]'
               }`}
               title={isFavorite ? 'Remover dos favoritos' : 'Favoritar este modelo'}
             >
@@ -162,18 +159,18 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                 href={item.previewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition"
+                className="h-10 px-4 bg-[#27272A] border-2 border-[#3F3F46] text-xs font-bold uppercase tracking-wider text-[#FAFAFA] hover:bg-[#FAFAFA] hover:text-black transition rounded-none flex items-center gap-1.5"
                 title="Abrir pré-visualização em tela cheia"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Nova Aba</span>
+                <span className="hidden sm:inline">NOVA ABA</span>
               </a>
             )}
 
             {/* Close modal */}
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-slate-200/70 text-slate-600 hover:bg-slate-300 hover:text-slate-900 transition"
+              className="h-10 w-10 flex items-center justify-center bg-[#27272A] border-2 border-[#3F3F46] text-[#FAFAFA] hover:bg-rose-600 hover:border-rose-600 transition rounded-none cursor-pointer"
               title="Fechar (Esc)"
             >
               <X className="w-5 h-5" />
@@ -184,111 +181,110 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
         {/* Modal Main Body (Split into Left: Customizer & Right: Live Frame) */}
         <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Left Column: Personalizer & Prompts */}
-          <div className="w-full lg:w-1/2 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 bg-white overflow-hidden">
+          <div className="w-full lg:w-1/2 flex flex-col border-b lg:border-b-0 lg:border-r-2 border-[#3F3F46] bg-[#09090B] overflow-hidden">
             {/* View Tabs */}
-            <div className="flex items-center border-b border-slate-200 px-5 pt-3 gap-2 shrink-0 bg-slate-50/40">
+            <div className="flex items-center border-b-2 border-[#3F3F46] px-6 pt-3 gap-2 shrink-0 bg-[#09090B]">
               <button
                 onClick={() => setActiveTab('personalize')}
-                className={`flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition ${
+                className={`flex items-center gap-2 px-4 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-b-2 transition cursor-pointer rounded-none ${
                   activeTab === 'personalize'
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                    ? 'border-[#DFE104] text-[#DFE104] bg-[#27272A]'
+                    : 'border-transparent text-[#A1A1AA] hover:text-[#FAFAFA]'
                 }`}
               >
-                <Wand2 className="w-4 h-4 text-blue-500" />
-                <span>Personalizador Mágico</span>
+                <Wand2 className="w-4 h-4 text-[#DFE104]" />
+                <span>PERSONALIZADOR MÁGICO</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('full-prompt')}
-                className={`flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition ${
+                className={`flex items-center gap-2 px-4 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-b-2 transition cursor-pointer rounded-none ${
                   activeTab === 'full-prompt'
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                    ? 'border-[#DFE104] text-[#DFE104] bg-[#27272A]'
+                    : 'border-transparent text-[#A1A1AA] hover:text-[#FAFAFA]'
                 }`}
               >
-                <FileCode className="w-4 h-4 text-indigo-500" />
-                <span>Prompt Original</span>
+                <FileCode className="w-4 h-4" />
+                <span>PROMPT COMPLETO</span>
               </button>
 
               {detail?.structured && (
                 <button
                   onClick={() => setActiveTab('components')}
-                  className={`flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition ${
+                  className={`flex items-center gap-2 px-4 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-b-2 transition cursor-pointer rounded-none ${
                     activeTab === 'components'
-                      ? 'border-blue-600 text-blue-600'
-                      : 'border-transparent text-slate-500 hover:text-slate-800'
+                      ? 'border-[#DFE104] text-[#DFE104] bg-[#27272A]'
+                      : 'border-transparent text-[#A1A1AA] hover:text-[#FAFAFA]'
                   }`}
                 >
-                  <Layers className="w-4 h-4 text-teal-500" />
-                  <span>Seções & Blocos</span>
+                  <Layers className="w-4 h-4" />
+                  <span>SEÇÕES & BLOCOS</span>
                 </button>
               )}
             </div>
 
             {/* Tab Contents */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {loading ? (
-                <div className="space-y-3 py-8">
-                  <div className="h-6 bg-slate-100 rounded-lg animate-pulse" />
-                  <div className="h-24 bg-slate-100 rounded-xl animate-pulse" />
-                  <div className="h-48 bg-slate-100 rounded-2xl animate-pulse" />
+                <div className="space-y-4 py-12">
+                  <div className="h-6 bg-[#27272A] animate-pulse" />
+                  <div className="h-28 bg-[#27272A] animate-pulse" />
+                  <div className="h-48 bg-[#27272A] animate-pulse" />
                 </div>
               ) : activeTab === 'personalize' ? (
                 /* TAB 1: PERSONALIZADOR MÁGICO */
-                <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 rounded-2xl p-4 text-xs text-blue-900">
-                    <div className="flex items-center gap-2 font-bold text-blue-800 mb-1">
-                      <Sparkles className="w-4 h-4 text-blue-600" />
-                      Como funciona o Personalizador Mágico:
+                <div className="space-y-5">
+                  <div className="bg-[#DFE104] text-black border-2 border-black p-4 text-xs font-bold uppercase tracking-wider rounded-none">
+                    <div className="flex items-center gap-2 font-black mb-1">
+                      <Sparkles className="w-4 h-4" />
+                      COMO FUNCIONA:
                     </div>
-                    Digite o nome da sua empresa e o que ela faz. Nós adaptamos o prompt
-                    automaticamente em português, pronto para colar no Lovable, Bolt, v0 ou ChatGPT!
+                    DIGITE O NOME E O RAMO DA SUA EMPRESA. ADAPTAMOS AUTOMATICAMENTE EM PORTUGUÊS PARA O LOVABLE, BOLT, V0 OU CHATGPT.
                   </div>
 
                   {/* Form fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Nome do seu Negócio / Projeto
+                      <label className="block text-xs font-black uppercase tracking-wider text-[#FAFAFA] mb-1.5 font-mono">
+                        NOME DA SUA EMPRESA // PROJETO
                       </label>
                       <input
                         type="text"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        placeholder="Ex: Barbearia Vip, Dra. Ana Silva, Hamburgueria Zé..."
-                        className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        placeholder="EX: BARBEARIA VIP, DRA. ANA SILVA..."
+                        className="w-full px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-[#27272A] border-2 border-[#3F3F46] text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#DFE104] focus:outline-none rounded-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Ferramenta de IA que você vai usar
+                      <label className="block text-xs font-black uppercase tracking-wider text-[#FAFAFA] mb-1.5 font-mono">
+                        FERRAMENTA DE IA DESTINO
                       </label>
                       <select
                         value={aiTarget}
                         onChange={(e) => setAiTarget(e.target.value as AiTarget)}
-                        className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none cursor-pointer font-semibold text-slate-800"
+                        className="w-full px-4 py-3 text-xs font-bold uppercase tracking-wider bg-[#27272A] border-2 border-[#3F3F46] text-[#DFE104] focus:border-[#DFE104] focus:outline-none cursor-pointer rounded-none"
                       >
-                        <option value="lovable">Lovable (Recomendado para Web Apps)</option>
-                        <option value="bolt">Bolt.new (Fullstack rápido)</option>
-                        <option value="v0">v0 da Vercel (Componentes Next.js / React)</option>
-                        <option value="chatgpt">ChatGPT (GPT-4o)</option>
-                        <option value="claude">Claude (Sonnet 3.5)</option>
-                        <option value="cursor">Cursor / Antigravity (Editor de Código)</option>
+                        <option value="lovable">LOVABLE.DEV (WEB APPS COMPLETOS)</option>
+                        <option value="bolt">BOLT.NEW (FULLSTACK RÁPIDO)</option>
+                        <option value="v0">V0.DEV DA VERCEL (REACT + SHADCN)</option>
+                        <option value="chatgpt">CHATGPT (GPT-4O)</option>
+                        <option value="claude">CLAUDE (SONNET 3.5)</option>
+                        <option value="cursor">CURSOR // ANTIGRAVITY</option>
                       </select>
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        O que sua empresa faz ou vende? (Opcional)
+                      <label className="block text-xs font-black uppercase tracking-wider text-[#FAFAFA] mb-1.5 font-mono">
+                        O QUE SUA EMPRESA FAZ OU VENDE? (OPCIONAL)
                       </label>
                       <input
                         type="text"
                         value={businessType}
                         onChange={(e) => setBusinessType(e.target.value)}
-                        placeholder="Ex: Clínica odontológica moderna em SP focada em implantes e clareamento dental"
-                        className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        placeholder="EX: CLINICA ODONTOLOGICA MODERNA EM SP FOCADA EM IMPLANTES E ESTETICA"
+                        className="w-full px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-[#27272A] border-2 border-[#3F3F46] text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#DFE104] focus:outline-none rounded-none"
                       />
                     </div>
                   </div>
@@ -296,67 +292,67 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                   {/* Generated Prompt Box */}
                   <div className="pt-2">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <FileCode className="w-3.5 h-3.5 text-blue-600" />
-                        Prompt Pronto para Copiar:
+                      <span className="text-xs font-black uppercase tracking-widest text-[#DFE104] flex items-center gap-1.5 font-mono">
+                        <FileCode className="w-3.5 h-3.5" />
+                        PROMPT PRONTO:
                       </span>
                       <button
                         onClick={handleCopyPersonalized}
-                        className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition ${
+                        className={`h-11 px-5 text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 rounded-none cursor-pointer ${
                           copiedPersonalized
-                            ? 'bg-emerald-600 text-white'
-                            : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/25'
+                            ? 'bg-emerald-500 text-black'
+                            : 'bg-[#DFE104] text-black hover:scale-105 active:scale-95'
                         }`}
                       >
                         {copiedPersonalized ? (
                           <>
-                            <Check className="w-4 h-4 stroke-[2.5]" />
-                            <span>Copiado com Sucesso!</span>
+                            <Check className="w-4 h-4 stroke-[3]" />
+                            <span>COPIADO COM SUCESSO!</span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-4 h-4" />
-                            <span>Copiar Prompt Personalizado</span>
+                            <span>COPIAR PROMPT PERSONALIZADO</span>
                           </>
                         )}
                       </button>
                     </div>
 
-                    <pre className="p-4 bg-slate-900 text-slate-100 rounded-2xl text-xs font-mono whitespace-pre-wrap max-h-80 overflow-y-auto leading-relaxed border border-slate-800">
+                    <pre className="p-4 bg-[#18181B] text-[#FAFAFA] text-xs font-mono whitespace-pre-wrap max-h-80 overflow-y-auto leading-relaxed border-2 border-[#3F3F46] rounded-none">
                       {customizedPromptText}
                     </pre>
                   </div>
                 </div>
               ) : activeTab === 'full-prompt' ? (
                 /* TAB 2: PROMPT ORIGINAL */
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-slate-500 font-medium">
-                      Prompt original completo sem modificações ({detail?.prompt.length || 0} caracteres)
+                    <span className="text-xs font-mono text-[#A1A1AA] uppercase">
+                      PROMPT ORIGINAL ({detail?.prompt.length || 0} CARACTERES)
                     </span>
                     <button
                       onClick={handleCopyRaw}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                      className={`h-10 px-4 text-xs font-black uppercase tracking-wider transition rounded-none cursor-pointer flex items-center gap-1.5 ${
                         copiedRaw
-                          ? 'bg-emerald-600 text-white'
-                          : 'bg-slate-900 hover:bg-blue-600 text-white'
+                          ? 'bg-emerald-500 text-black'
+                          : 'bg-[#DFE104] text-black hover:scale-105 active:scale-95'
                       }`}
                     >
                       {copiedRaw ? (
                         <>
-                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                          <span>Copiado!</span>
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          <span>COPIADO!</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span>Copiar Original</span>
+                          <span>COPIAR ORIGINAL</span>
                         </>
                       )}
                     </button>
                   </div>
 
-                  <pre className="p-4 bg-slate-900 text-slate-100 rounded-2xl text-xs font-mono whitespace-pre-wrap max-h-[500px] overflow-y-auto leading-relaxed border border-slate-800">
+                  <pre className="p-4 bg-[#18181B] text-[#FAFAFA] text-xs font-mono whitespace-pre-wrap max-h-[500px] overflow-y-auto leading-relaxed border-2 border-[#3F3F46] rounded-none">
                     {detail?.prompt || 'Nenhum prompt disponível.'}
                   </pre>
                 </div>
@@ -364,48 +360,48 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                 /* TAB 3: COMPONENTES & SEÇÕES */
                 <div className="space-y-4">
                   {detail?.structured?.style && (
-                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                          🎨 Diretrizes de Estilo Visual
+                    <div className="bg-[#18181B] border-2 border-[#3F3F46] p-4 rounded-none">
+                      <div className="flex items-center justify-between mb-2 pb-2 border-b border-[#3F3F46]">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#DFE104] font-mono">
+                          // DIRETRIZES DE ESTILO VISUAL
                         </span>
                         <button
                           onClick={() => handleCopyBlock('style', detail.structured!.style!)}
-                          className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 rounded-lg text-slate-700 hover:text-blue-600 transition"
+                          className="h-8 px-3 text-[11px] font-bold uppercase bg-[#27272A] hover:bg-[#FAFAFA] hover:text-black text-[#FAFAFA] transition rounded-none cursor-pointer flex items-center gap-1"
                         >
                           {copiedSection === 'style' ? (
-                            <Check className="w-3 h-3 text-emerald-600" />
+                            <Check className="w-3 h-3 text-emerald-400" />
                           ) : (
                             <Copy className="w-3 h-3" />
                           )}
-                          <span>Copiar Estilo</span>
+                          <span>COPIAR ESTILO</span>
                         </button>
                       </div>
-                      <pre className="text-xs font-mono text-slate-800 bg-white p-3 rounded-xl border border-slate-200 whitespace-pre-wrap">
+                      <pre className="text-xs font-mono text-[#FAFAFA] whitespace-pre-wrap">
                         {detail.structured.style}
                       </pre>
                     </div>
                   )}
 
                   {detail?.structured?.layout && (
-                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                          📐 Estrutura de Layout
+                    <div className="bg-[#18181B] border-2 border-[#3F3F46] p-4 rounded-none">
+                      <div className="flex items-center justify-between mb-2 pb-2 border-b border-[#3F3F46]">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#DFE104] font-mono">
+                          // ESTRUTURA DE LAYOUT
                         </span>
                         <button
                           onClick={() => handleCopyBlock('layout', detail.structured!.layout!)}
-                          className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 rounded-lg text-slate-700 hover:text-blue-600 transition"
+                          className="h-8 px-3 text-[11px] font-bold uppercase bg-[#27272A] hover:bg-[#FAFAFA] hover:text-black text-[#FAFAFA] transition rounded-none cursor-pointer flex items-center gap-1"
                         >
                           {copiedSection === 'layout' ? (
-                            <Check className="w-3 h-3 text-emerald-600" />
+                            <Check className="w-3 h-3 text-emerald-400" />
                           ) : (
                             <Copy className="w-3 h-3" />
                           )}
-                          <span>Copiar Layout</span>
+                          <span>COPIAR LAYOUT</span>
                         </button>
                       </div>
-                      <pre className="text-xs font-mono text-slate-800 bg-white p-3 rounded-xl border border-slate-200 whitespace-pre-wrap">
+                      <pre className="text-xs font-mono text-[#FAFAFA] whitespace-pre-wrap">
                         {detail.structured.layout}
                       </pre>
                     </div>
@@ -413,29 +409,31 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
 
                   {detail?.structured?.components && (
                     <div className="space-y-3">
-                      <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
-                        🧩 Componentes Específicos
+                      <span className="text-xs font-black uppercase tracking-widest text-[#FAFAFA] font-mono block">
+                        // COMPONENTES MODULARES
                       </span>
                       {Object.entries(detail.structured.components).map(([cName, cContent]) => (
                         <div
                           key={cName}
-                          className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5"
+                          className="bg-[#18181B] border-2 border-[#3F3F46] p-4 rounded-none"
                         >
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-bold text-blue-700">{cName}</span>
+                          <div className="flex items-center justify-between mb-2 pb-2 border-b border-[#3F3F46]">
+                            <span className="text-xs font-black uppercase tracking-wider text-[#DFE104] font-mono">
+                              {cName}
+                            </span>
                             <button
                               onClick={() => handleCopyBlock(cName, cContent)}
-                              className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 rounded-lg text-slate-700 hover:text-blue-600 transition"
+                              className="h-8 px-3 text-[11px] font-bold uppercase bg-[#27272A] hover:bg-[#FAFAFA] hover:text-black text-[#FAFAFA] transition rounded-none cursor-pointer flex items-center gap-1"
                             >
                               {copiedSection === cName ? (
-                                <Check className="w-3 h-3 text-emerald-600" />
+                                <Check className="w-3 h-3 text-emerald-400" />
                               ) : (
                                 <Copy className="w-3 h-3" />
                               )}
-                              <span>Copiar Bloco</span>
+                              <span>COPIAR BLOCO</span>
                             </button>
                           </div>
-                          <pre className="text-xs font-mono text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200 whitespace-pre-wrap max-h-40 overflow-y-auto">
+                          <pre className="text-xs font-mono text-[#FAFAFA] whitespace-pre-wrap max-h-40 overflow-y-auto">
                             {cContent}
                           </pre>
                         </div>
@@ -448,22 +446,22 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
           </div>
 
           {/* Right Column: Live Interactive Frame Preview */}
-          <div className="w-full lg:w-1/2 flex flex-col bg-slate-950 overflow-hidden">
+          <div className="w-full lg:w-1/2 flex flex-col bg-[#000000] overflow-hidden">
             {/* Frame Controls Bar */}
-            <div className="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between gap-2 shrink-0">
-              <div className="flex items-center gap-1.5 text-xs text-slate-300 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Pré-visualização Interativa</span>
+            <div className="px-5 py-3 bg-[#09090B] border-b-2 border-[#3F3F46] flex items-center justify-between gap-2 shrink-0">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FAFAFA] font-mono">
+                <span className="w-2.5 h-2.5 bg-[#DFE104] animate-pulse" />
+                <span>PREVIEW INTERATIVO</span>
               </div>
 
               {/* Viewport switchers */}
-              <div className="flex items-center bg-slate-800 p-1 rounded-xl gap-1">
+              <div className="flex items-center bg-[#27272A] p-0.5 border-2 border-[#3F3F46]">
                 <button
                   onClick={() => setFrameSize('desktop')}
-                  className={`p-1.5 rounded-lg transition ${
+                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                     frameSize === 'desktop'
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#DFE104] text-black'
+                      : 'text-[#A1A1AA] hover:text-white'
                   }`}
                   title="Visão Computador (100%)"
                 >
@@ -472,10 +470,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
 
                 <button
                   onClick={() => setFrameSize('tablet')}
-                  className={`p-1.5 rounded-lg transition ${
+                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                     frameSize === 'tablet'
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#DFE104] text-black'
+                      : 'text-[#A1A1AA] hover:text-white'
                   }`}
                   title="Visão Tablet (768px)"
                 >
@@ -484,10 +482,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
 
                 <button
                   onClick={() => setFrameSize('mobile')}
-                  className={`p-1.5 rounded-lg transition ${
+                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                     frameSize === 'mobile'
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#DFE104] text-black'
+                      : 'text-[#A1A1AA] hover:text-white'
                   }`}
                   title="Visão Celular (375px)"
                 >
@@ -497,10 +495,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             </div>
 
             {/* Iframe or Fallback container */}
-            <div className="flex-1 bg-slate-900/90 flex items-center justify-center p-2 sm:p-4 overflow-hidden">
+            <div className="flex-1 bg-[#000000] flex items-center justify-center p-2 sm:p-4 overflow-hidden">
               {item.previewUrl ? (
                 <div
-                  className={`h-full bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 flex flex-col border border-slate-800 ${
+                  className={`h-full bg-white border-2 border-[#3F3F46] overflow-hidden transition-all duration-300 flex flex-col rounded-none ${
                     frameSize === 'mobile'
                       ? 'w-[375px] max-w-full'
                       : frameSize === 'tablet'
@@ -517,23 +515,22 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                   />
                 </div>
               ) : (
-                <div className="text-center p-6 text-slate-400 max-w-md">
-                  <div className="w-16 h-16 rounded-3xl bg-slate-800 text-blue-400 flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-8 text-[#A1A1AA] max-w-md border-2 border-[#3F3F46] bg-[#09090B]">
+                  <div className="w-16 h-16 bg-[#27272A] border-2 border-[#DFE104] text-[#DFE104] flex items-center justify-center mx-auto mb-4 rounded-none">
                     <Laptop className="w-8 h-8" />
                   </div>
-                  <h4 className="text-base font-bold text-white mb-1">
-                    Visualização em Código Puro
+                  <h4 className="text-base font-black uppercase text-white mb-2 font-heading tracking-tight">
+                    CÓDIGO E REGRAS DIRETAS
                   </h4>
-                  <p className="text-xs text-slate-400 mb-4 leading-relaxed">
-                    Este modelo é focado em lógica, regras e componentes diretos. Copie o prompt e
-                    cole no Lovable, Bolt ou v0 para ver a interface renderizada instantaneamente!
+                  <p className="text-xs text-[#A1A1AA] uppercase tracking-wider mb-6 leading-relaxed font-mono">
+                    ESTE MODELO FOI CONSTRUÍDO COM REGRAS PURAS PARA GERAR TELAS NO LOVABLE, BOLT OU V0.
                   </p>
                   <button
                     onClick={handleCopyPersonalized}
-                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5"
+                    className="h-12 px-6 bg-[#DFE104] text-black text-xs font-black uppercase tracking-wider transition rounded-none inline-flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95"
                   >
-                    <Copy className="w-3.5 h-3.5" />
-                    Copiar e Testar no Lovable
+                    <Copy className="w-4 h-4" />
+                    <span>COPIAR E TESTAR NO LOVABLE</span>
                   </button>
                 </div>
               )}

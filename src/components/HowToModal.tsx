@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Sparkles, CheckCircle2, ArrowRight, Laptop, Wand2, Copy, Heart } from 'lucide-react';
+import { X, Sparkles, ArrowRight, Wand2, Copy, Check } from 'lucide-react';
 
 interface HowToModalProps {
   isOpen: boolean;
@@ -22,97 +22,90 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white w-full max-w-3xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
+        className="bg-[#09090B] w-full max-w-4xl border-2 border-[#3F3F46] rounded-none overflow-hidden flex flex-col shadow-none"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white p-6 sm:p-8 relative">
+        <div className="bg-[#DFE104] text-black p-6 sm:p-8 relative border-b-2 border-black">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-xl bg-white/20 text-white hover:bg-white/30 transition"
+            className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center bg-black text-[#DFE104] hover:bg-black/80 transition rounded-none cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/20 text-white mb-2 backdrop-blur-xs">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            Guia Rápido para Iniciantes
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-[#DFE104] text-xs font-black uppercase tracking-widest mb-3 rounded-none">
+            <Sparkles className="w-3.5 h-3.5" />
+            GUIA RÁPIDO PARA LEIGOS
           </div>
-          <h2 className="text-xl sm:text-2xl font-extrabold font-heading">
-            Como criar seu site ou aplicativo em 3 minutos
+          <h2 className="text-2xl sm:text-4xl font-black font-heading uppercase tracking-tighter">
+            COMO CRIAR SUA INTERFACE EM 3 MINUTOS
           </h2>
-          <p className="text-xs sm:text-sm text-blue-100 mt-1 max-w-lg">
-            Você não precisa saber programação ou design. Siga este passo a passo simples para
-            transformar qualquer modelo desta biblioteca no seu projeto real.
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider mt-2 max-w-2xl text-black/80">
+            VOCÊ NÃO PRECISA SABER PROGRAMAÇÃO OU DESIGN. APENAS SIGA ESTES 3 PASSOS SIMPLES.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto max-h-[70vh]">
+        <div className="p-6 sm:p-8 space-y-8 overflow-y-auto max-h-[70vh] bg-[#09090B]">
           {/* Step 1 */}
-          <div className="flex gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg shrink-0">
-              1
+          <div className="flex flex-col sm:flex-row gap-5 items-start border-b-2 border-[#3F3F46] pb-6">
+            <div className="text-6xl sm:text-7xl font-black text-[#DFE104] font-heading leading-none shrink-0">
+              01
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 font-heading">
-                Escolha o visual que você mais gostou
+              <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[#FAFAFA] font-heading">
+                ESCOLHA O MODELO IDEAL PARA SUA IDEIA
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                Navegue pelas 10 categorias na barra lateral (Páginas de Vendas, Painéis, Lojas,
-                Portfólios, etc.) ou use a barra de busca para encontrar o nicho da sua empresa (ex:
-                clínica, restaurante, imobiliária, academia).
+              <p className="text-xs sm:text-sm text-[#A1A1AA] mt-2 leading-relaxed uppercase tracking-wide font-medium">
+                NAVEGUE PELAS 10 CATEGORIAS (PÁGINAS DE VENDAS, PAINÉIS, LOJAS, PORTFÓLIOS) OU USE O CAMPO DE BUSCA PARA ENCONTRAR O NICHO DA SUA EMPRESA (EX: ODONTOLOGIA, RESTAURANTE, BARBEARIA).
               </p>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="flex gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg shrink-0">
-              2
+          <div className="flex flex-col sm:flex-row gap-5 items-start border-b-2 border-[#3F3F46] pb-6">
+            <div className="text-6xl sm:text-7xl font-black text-[#DFE104] font-heading leading-none shrink-0">
+              02
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 font-heading">
-                Personalize com o nome da sua empresa (Personalizador Mágico)
+              <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[#FAFAFA] font-heading">
+                PERSONALIZE O PROMPT NO PERSONALIZADOR MÁGICO
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                Clique no card para abrir o estúdio. Na aba{' '}
-                <strong className="text-indigo-600">Personalizador Mágico</strong>, digite o nome do
-                seu negócio e o que você vende. Nossa IA adapta todos os títulos, textos e chamadas
-                para o seu contexto em português!
+              <p className="text-xs sm:text-sm text-[#A1A1AA] mt-2 leading-relaxed uppercase tracking-wide font-medium">
+                CLIQUE NO CARD PARA ABRIR O ESTÚDIO. NA ABA <strong className="text-[#DFE104]">PERSONALIZADOR MÁGICO</strong>, DIGITE O NOME DO SEU NEGÓCIO E O QUE ELE FAZ. O PROMPT É CONVERTIDO AUTOMATICAMENTE EM PORTUGUÊS COM SEU CONTEXTO REAL.
               </p>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="flex gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg shrink-0">
-              3
+          <div className="flex flex-col sm:flex-row gap-5 items-start border-b-2 border-[#3F3F46] pb-6">
+            <div className="text-6xl sm:text-7xl font-black text-[#DFE104] font-heading leading-none shrink-0">
+              03
             </div>
-            <div>
-              <h3 className="text-base font-bold text-slate-900 font-heading">
-                Copie o prompt e cole na ferramenta de sua preferência
+            <div className="flex-1">
+              <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[#FAFAFA] font-heading">
+                COPIE E COLE NA SUA FERRAMENTA PREFERIDA
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                Clique em <strong className="text-emerald-600">Copiar Prompt Personalizado</strong>{' '}
-                e cole em uma dessas ferramentas gratuitas:
+              <p className="text-xs sm:text-sm text-[#A1A1AA] mt-2 leading-relaxed uppercase tracking-wide font-medium">
+                CLIQUE EM <strong className="text-[#DFE104]">COPIAR PROMPT PERSONALIZADO</strong> E COLE EM QUALQUER UMA DESSAS PLATAFORMAS:
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
                 <a
                   href="https://lovable.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 transition text-left group"
+                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
                 >
-                  <div className="font-bold text-xs text-slate-900 group-hover:text-blue-600 flex items-center justify-between">
-                    <span>Lovable (lovable.dev)</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
+                    <span>LOVABLE (LOVABLE.DEV)</span>
+                    <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
-                    Gera a página inteira navegável com 1 clique.
+                  <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
+                    CRIA O WEB APP COMPLETO COM NAVEGAÇÃO.
                   </div>
                 </a>
 
@@ -120,14 +113,14 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
                   href="https://bolt.new"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 transition text-left group"
+                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
                 >
-                  <div className="font-bold text-xs text-slate-900 group-hover:text-blue-600 flex items-center justify-between">
-                    <span>Bolt.new</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
+                    <span>BOLT.NEW</span>
+                    <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
-                    Cria e roda no navegador em segundos.
+                  <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
+                    CRIA E EXECUTA CÓDIGO NO NAVEGADOR EM SEGUNDOS.
                   </div>
                 </a>
 
@@ -135,14 +128,14 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
                   href="https://v0.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 transition text-left group"
+                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
                 >
-                  <div className="font-bold text-xs text-slate-900 group-hover:text-blue-600 flex items-center justify-between">
-                    <span>v0 da Vercel (v0.dev)</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
+                    <span>V0 DA VERCEL (V0.DEV)</span>
+                    <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
-                    Design limpo e moderno com React e Tailwind.
+                  <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
+                    COMPONENTES LIMPOS EM REACT E TAILWIND.
                   </div>
                 </a>
 
@@ -150,14 +143,14 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
                   href="https://chatgpt.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 transition text-left group"
+                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
                 >
-                  <div className="font-bold text-xs text-slate-900 group-hover:text-blue-600 flex items-center justify-between">
-                    <span>ChatGPT ou Claude</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
+                    <span>CHATGPT OU CLAUDE</span>
+                    <ArrowRight className="w-4 h-4" />
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
-                    Peça o código completo e tire dúvidas.
+                  <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
+                    PEÇA O CÓDIGO FONTE E EXPLICAÇÕES PASSO A PASSO.
                   </div>
                 </a>
               </div>
@@ -165,35 +158,25 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Dicas Finais */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs text-slate-600 space-y-2">
-            <div className="font-bold text-slate-800 flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              Dicas de ouro para o melhor resultado:
+          <div className="bg-[#27272A] border-2 border-[#3F3F46] p-5 text-xs text-[#FAFAFA] uppercase font-mono tracking-wider space-y-2 rounded-none">
+            <div className="font-black text-[#DFE104] flex items-center gap-1.5">
+              // REGRAS DE OURO:
             </div>
-            <ul className="list-disc list-inside space-y-1 text-slate-600">
-              <li>
-                Salve seus modelos favoritos clicando no ícone de <strong>Coração ❤️</strong>. Eles
-                ficam salvos no seu computador.
-              </li>
-              <li>
-                Se você precisa de uma identidade visual completa (paleta de cores, tipografia e
-                modo escuro), use a aba <strong>Sistemas de Cores & Design</strong> e copie o
-                arquivo <code className="bg-slate-200 px-1 py-0.5 rounded">design.md</code>.
-              </li>
-              <li>
-                Esta biblioteca é 100% gratuita, sem limites e sem necessidade de login.
-              </li>
+            <ul className="list-disc list-inside space-y-1 text-[#A1A1AA]">
+              <li>SALVE SEUS PROMPTS FAVORITOS CLICANDO NO ÍCONE DE CORAÇÃO.</li>
+              <li>USE A ABA "SISTEMAS DESIGN.MD" SE QUISER UMA PALETA DE CORES COMPLETA.</li>
+              <li>100% GRÁTIS, ILIMITADO E SEM NECESSIDADE DE CADASTRO.</li>
             </ul>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+        <div className="p-4 bg-[#09090B] border-t-2 border-[#3F3F46] flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs sm:text-sm font-bold transition shadow-sm"
+            className="h-12 px-8 bg-[#DFE104] hover:scale-105 active:scale-95 text-black font-black text-xs uppercase tracking-widest transition rounded-none cursor-pointer"
           >
-            Entendi, quero começar!
+            ENTENDI // COMEÇAR AGORA
           </button>
         </div>
       </div>

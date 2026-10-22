@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Laptop,
   Smartphone,
-  SlidersHorizontal,
   X,
   Sparkles,
   ArrowUpDown,
@@ -24,14 +23,14 @@ interface FilterBarProps {
 }
 
 const THEMES = [
-  { id: 'all', label: 'Todos os Estilos', emoji: '✨' },
-  { id: 'escuro', label: 'Modo Escuro (Dark)', emoji: '🌙' },
-  { id: 'claro', label: 'Modo Claro & Clean', emoji: '☀️' },
-  { id: 'vidro', label: 'Efeito Vidro (Glass)', emoji: '🪟' },
-  { id: 'luxo', label: 'Elegante & Luxo', emoji: '💎' },
-  { id: 'vibrante', label: 'Colorido & Moderno', emoji: '🎨' },
-  { id: 'minimalista', label: 'Minimalista & Suave', emoji: '🌿' },
-  { id: 'retro-brutalista', label: 'Retrô & Criativo', emoji: '🕹️' },
+  { id: 'all', label: 'TODOS OS ESTILOS', emoji: '★' },
+  { id: 'escuro', label: 'DARK MODE (NOTURNO)', emoji: '🌙' },
+  { id: 'claro', label: 'MODO CLARO (CLEAN)', emoji: '☀️' },
+  { id: 'vidro', label: 'GLASSMORPHISM (VIDRO)', emoji: '🪟' },
+  { id: 'luxo', label: 'ELEGANTE & LUXO (SERIF)', emoji: '💎' },
+  { id: 'vibrante', label: 'COLORIDO & VIBRANTE', emoji: '⚡' },
+  { id: 'minimalista', label: 'MINIMALISTA & SUAVE', emoji: '🌿' },
+  { id: 'retro-brutalista', label: 'RETRÔ // BRUTALISTA', emoji: '🕹️' },
 ];
 
 export const FilterBar: React.FC<FilterBarProps> = ({
@@ -52,96 +51,94 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     selectedTheme !== 'all' || selectedDevice !== 'all' || selectedCategory !== 'all';
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs mb-6 space-y-3.5">
+    <div className="bg-[#09090B] border-2 border-[#3F3F46] p-5 mb-6 space-y-4 rounded-none">
       {/* Category header title & description */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b-2 border-[#3F3F46]">
         <div>
-          <h2 className="text-base sm:text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
-            <span>{currentCategory ? currentCategory.labelPt : 'Todos os Modelos'}</span>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
-              {filteredCount} {filteredCount === 1 ? 'modelo' : 'modelos'}
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl sm:text-2xl font-black text-[#FAFAFA] font-heading uppercase tracking-tighter">
+              {currentCategory ? currentCategory.labelPt : 'TODOS OS MODELOS'}
+            </h2>
+            <span className="text-xs font-mono font-bold px-2 py-0.5 bg-[#DFE104] text-black">
+              {filteredCount} {filteredCount === 1 ? 'PROMPT' : 'PROMPTS'}
             </span>
-          </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          </div>
+          <p className="text-xs text-[#A1A1AA] mt-1 font-medium uppercase tracking-wider">
             {currentCategory
               ? currentCategory.descriptionPt
-              : 'Navegue por mais de 1.100 modelos de interfaces, sites e componentes prontos para copiar.'}
+              : 'CATÁLOGO COMPLETO DE TELAS, COMPONENTES E SISTEMAS PRONTOS PARA COPIAR.'}
           </p>
         </div>
 
         {/* Device toggle & Sort dropdown */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           {/* Device selector */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-medium">
+          <div className="flex items-center bg-[#27272A] p-0.5 border-2 border-[#3F3F46] text-xs font-bold uppercase tracking-wider">
             <button
               onClick={() => onSelectDevice('all')}
-              className={`px-2.5 py-1 rounded-lg transition ${
+              className={`px-3 py-1.5 transition cursor-pointer ${
                 selectedDevice === 'all'
-                  ? 'bg-white text-slate-900 shadow-xs font-semibold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#DFE104] text-black'
+                  : 'text-[#A1A1AA] hover:text-[#FAFAFA]'
               }`}
-              title="Todos os Dispositivos"
             >
-              Todos
+              TODOS
             </button>
             <button
               onClick={() => onSelectDevice('desktop')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 transition cursor-pointer ${
                 selectedDevice === 'desktop'
-                  ? 'bg-white text-blue-600 shadow-xs font-semibold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#DFE104] text-black'
+                  : 'text-[#A1A1AA] hover:text-[#FAFAFA]'
               }`}
-              title="Apenas Modelos Desktop / Computador"
             >
               <Laptop className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Desktop</span>
+              <span className="hidden sm:inline">DESKTOP</span>
             </button>
             <button
               onClick={() => onSelectDevice('mobile')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 transition cursor-pointer ${
                 selectedDevice === 'mobile'
-                  ? 'bg-white text-emerald-600 shadow-xs font-semibold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#DFE104] text-black'
+                  : 'text-[#A1A1AA] hover:text-[#FAFAFA]'
               }`}
-              title="Apenas Modelos Celular / Mobile"
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Mobile</span>
+              <span className="hidden sm:inline">MOBILE</span>
             </button>
           </div>
 
           {/* Sort dropdown */}
-          <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-700">
-            <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 bg-[#27272A] border-2 border-[#3F3F46] px-3 py-1.5 text-xs font-bold text-[#FAFAFA] uppercase tracking-wider">
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#DFE104]" />
             <select
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value as any)}
-              className="bg-transparent text-xs font-semibold text-slate-800 focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-bold uppercase tracking-wider text-[#FAFAFA] focus:outline-none cursor-pointer"
             >
-              <option value="popular">Mais Usados</option>
-              <option value="recent">Mais Recentes</option>
-              <option value="name">Ordem A-Z</option>
+              <option value="popular" className="bg-[#09090B] text-white">MAIS USADOS</option>
+              <option value="recent" className="bg-[#09090B] text-white">MAIS RECENTES</option>
+              <option value="name" className="bg-[#09090B] text-white">ORDEM A-Z</option>
             </select>
           </div>
 
           {hasActiveFilters && (
             <button
               onClick={onResetFilters}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition"
+              className="flex items-center gap-1 h-9 px-3 bg-[#27272A] hover:bg-rose-950 text-xs font-bold uppercase tracking-wider text-rose-300 border-2 border-rose-800 transition cursor-pointer"
               title="Limpar todos os filtros"
             >
               <X className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Limpar</span>
+              <span>LIMPAR</span>
             </button>
           )}
         </div>
       </div>
 
       {/* Theme horizontal chip list */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0 mr-1 flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-amber-500" />
-          Estilo Visual:
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        <span className="text-[11px] font-black uppercase tracking-widest text-[#DFE104] shrink-0 mr-1 flex items-center gap-1">
+          ESTILO:
         </span>
         {THEMES.map((th) => {
           const isSelected = selectedTheme === th.id;
@@ -149,10 +146,10 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <button
               key={th.id}
               onClick={() => onSelectTheme(th.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition shrink-0 cursor-pointer rounded-none border-2 ${
                 isSelected
-                  ? 'bg-slate-900 text-white font-semibold shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80'
+                  ? 'bg-[#DFE104] text-black border-[#DFE104]'
+                  : 'bg-[#27272A] text-[#FAFAFA] border-[#3F3F46] hover:border-[#DFE104]'
               }`}
             >
               <span>{th.emoji}</span>
