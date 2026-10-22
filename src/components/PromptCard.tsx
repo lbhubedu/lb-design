@@ -29,6 +29,7 @@ export const PromptCard: React.FC<PromptCardProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [loadingCopy, setLoadingCopy] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const handleQuickCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -56,7 +57,7 @@ export const PromptCard: React.FC<PromptCardProps> = ({
       <div>
         {/* Thumbnail area */}
         <div className="relative aspect-video bg-[#000000] border-b-2 border-[#3F3F46] overflow-hidden flex items-center justify-center">
-          {item.thumbnailUrl ? (
+          {item.thumbnailUrl && !imgError ? (
             item.thumbnailType === 'video' ? (
               <video
                 src={item.thumbnailUrl}
@@ -71,6 +72,7 @@ export const PromptCard: React.FC<PromptCardProps> = ({
                 src={item.thumbnailUrl}
                 alt={item.titlePt || item.title}
                 loading="lazy"
+                onError={() => setImgError(true)}
                 className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />
             )

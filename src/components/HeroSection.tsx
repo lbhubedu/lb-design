@@ -44,8 +44,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span className="text-[#DFE104]">BRASIL.</span>
           </h1>
           <p className="mt-4 text-xl sm:text-2xl md:text-3xl text-[#A1A1AA] font-medium tracking-tight max-w-4xl uppercase font-heading">
-            A MAIOR BIBLIOTECA DE PROMPTS DE DESIGN E SISTEMAS DE CORES PARA LEIGOS.
-            CONSTRUA TELAS PROFISSIONAIS NO <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">LOVABLE</span>, <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">BOLT</span>, <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">V0</span> E <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">CHATGPT</span> EM MINUTOS.
+            BIBLIOTECA ESPECIALIZADA EM APPS, CRMS, DASHBOARDS E FERRAMENTAS DE IA.
+            CONSTRUA TELAS PROFISSIONAIS NO{' '}
+            <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">
+              ARENA.AI
+            </span>
+            ,{' '}
+            <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">
+              CODEX DESKTOP
+            </span>
+            ,{' '}
+            <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">
+              ANTIGRAVITY
+            </span>{' '}
+            E{' '}
+            <span className="text-[#FAFAFA] underline decoration-[#DFE104] decoration-2">
+              CHATGPT
+            </span>
+            .
           </p>
         </div>
 

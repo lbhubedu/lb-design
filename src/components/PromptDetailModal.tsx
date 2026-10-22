@@ -39,6 +39,8 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   const [detail, setDetail] = useState<PromptDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<ActiveViewTab>('personalize');
+  const [previewMode, setPreviewMode] = useState<'interactive' | 'screenshot'>('interactive');
+  const [iframeLoading, setIframeLoading] = useState(true);
   const [frameSize, setFrameSize] = useState<FrameSize>(
     item.previewDevice === 'mobile' ? 'mobile' : 'desktop'
   );
@@ -46,7 +48,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   // Personalization state
   const [businessName, setBusinessName] = useState('');
   const [businessType, setBusinessType] = useState('');
-  const [aiTarget, setAiTarget] = useState<AiTarget>('lovable');
+  const [aiTarget, setAiTarget] = useState<AiTarget>('arena');
   const [language, setLanguage] = useState<'pt-BR' | 'en'>('pt-BR');
 
   const [copiedPersonalized, setCopiedPersonalized] = useState(false);
@@ -266,12 +268,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                         onChange={(e) => setAiTarget(e.target.value as AiTarget)}
                         className="w-full px-4 py-3 text-xs font-bold uppercase tracking-wider bg-[#27272A] border-2 border-[#3F3F46] text-[#DFE104] focus:border-[#DFE104] focus:outline-none cursor-pointer rounded-none"
                       >
-                        <option value="lovable">LOVABLE.DEV (WEB APPS COMPLETOS)</option>
-                        <option value="bolt">BOLT.NEW (FULLSTACK RÁPIDO)</option>
-                        <option value="v0">V0.DEV DA VERCEL (REACT + SHADCN)</option>
-                        <option value="chatgpt">CHATGPT (GPT-4O)</option>
-                        <option value="claude">CLAUDE (SONNET 3.5)</option>
-                        <option value="cursor">CURSOR // ANTIGRAVITY</option>
+                        <option value="arena">ARENA.AI (SINGLE-FILE COMPONENT)</option>
+                        <option value="codex">CHATGPT / CODEX DESKTOP</option>
+                        <option value="antigravity">ANTIGRAVITY DESKTOP (GOOGLE AGENTIC IDE)</option>
+                        <option value="chatgpt">CHATGPT (PASSO A PASSO GERAL)</option>
                       </select>
                     </div>
 
@@ -445,60 +445,96 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Live Interactive Frame Preview */}
+          {/* Right Column: Visual Preview Panel */}
           <div className="w-full lg:w-1/2 flex flex-col bg-[#000000] overflow-hidden">
             {/* Frame Controls Bar */}
-            <div className="px-5 py-3 bg-[#09090B] border-b-2 border-[#3F3F46] flex items-center justify-between gap-2 shrink-0">
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FAFAFA] font-mono">
-                <span className="w-2.5 h-2.5 bg-[#DFE104] animate-pulse" />
-                <span>PREVIEW INTERATIVO</span>
+            <div className="px-5 py-3 bg-[#09090B] border-b-2 border-[#3F3F46] flex flex-wrap items-center justify-between gap-2 shrink-0">
+              {/* Interactive vs Screenshot mode switcher */}
+              <div className="flex items-center bg-[#27272A] p-0.5 border-2 border-[#3F3F46]">
+                <button
+                  onClick={() => setPreviewMode('interactive')}
+                  className={`px-3 py-1 text-xs font-black uppercase tracking-wider transition cursor-pointer ${
+                    previewMode === 'interactive'
+                      ? 'bg-[#DFE104] text-black'
+                      : 'text-[#A1A1AA] hover:text-white'
+                  }`}
+                >
+                  ⚡ AO VIVO
+                </button>
+                <button
+                  onClick={() => setPreviewMode('screenshot')}
+                  className={`px-3 py-1 text-xs font-black uppercase tracking-wider transition cursor-pointer ${
+                    previewMode === 'screenshot'
+                      ? 'bg-[#DFE104] text-black'
+                      : 'text-[#A1A1AA] hover:text-white'
+                  }`}
+                >
+                  🖼️ SCREENSHOT HD
+                </button>
               </div>
 
               {/* Viewport switchers */}
-              <div className="flex items-center bg-[#27272A] p-0.5 border-2 border-[#3F3F46]">
-                <button
-                  onClick={() => setFrameSize('desktop')}
-                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
-                    frameSize === 'desktop'
-                      ? 'bg-[#DFE104] text-black'
-                      : 'text-[#A1A1AA] hover:text-white'
-                  }`}
-                  title="Visão Computador (100%)"
-                >
-                  <Laptop className="w-3.5 h-3.5" />
-                </button>
+              <div className="flex items-center gap-2">
+                {previewMode === 'interactive' && item.previewUrl && (
+                  <div className="flex items-center bg-[#27272A] p-0.5 border-2 border-[#3F3F46]">
+                    <button
+                      onClick={() => setFrameSize('desktop')}
+                      className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
+                        frameSize === 'desktop'
+                          ? 'bg-[#DFE104] text-black'
+                          : 'text-[#A1A1AA] hover:text-white'
+                      }`}
+                      title="Visão Computador (100%)"
+                    >
+                      <Laptop className="w-3.5 h-3.5" />
+                    </button>
 
-                <button
-                  onClick={() => setFrameSize('tablet')}
-                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
-                    frameSize === 'tablet'
-                      ? 'bg-[#DFE104] text-black'
-                      : 'text-[#A1A1AA] hover:text-white'
-                  }`}
-                  title="Visão Tablet (768px)"
-                >
-                  <Tablet className="w-3.5 h-3.5" />
-                </button>
+                    <button
+                      onClick={() => setFrameSize('tablet')}
+                      className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
+                        frameSize === 'tablet'
+                          ? 'bg-[#DFE104] text-black'
+                          : 'text-[#A1A1AA] hover:text-white'
+                      }`}
+                      title="Visão Tablet (768px)"
+                    >
+                      <Tablet className="w-3.5 h-3.5" />
+                    </button>
 
-                <button
-                  onClick={() => setFrameSize('mobile')}
-                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
-                    frameSize === 'mobile'
-                      ? 'bg-[#DFE104] text-black'
-                      : 'text-[#A1A1AA] hover:text-white'
-                  }`}
-                  title="Visão Celular (375px)"
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                </button>
+                    <button
+                      onClick={() => setFrameSize('mobile')}
+                      className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
+                        frameSize === 'mobile'
+                          ? 'bg-[#DFE104] text-black'
+                          : 'text-[#A1A1AA] hover:text-white'
+                      }`}
+                      title="Visão Celular (375px)"
+                    >
+                      <Smartphone className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+
+                {item.previewUrl && (
+                  <a
+                    href={item.previewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-7 px-2.5 bg-[#27272A] hover:bg-[#FAFAFA] hover:text-black text-[#FAFAFA] border-2 border-[#3F3F46] text-[10px] font-bold uppercase tracking-wider transition flex items-center gap-1"
+                    title="Abrir pré-visualização em tela cheia externa"
+                  >
+                    <Maximize2 className="w-3 h-3" />
+                    <span className="hidden sm:inline">NOVA ABA</span>
+                  </a>
+                )}
               </div>
             </div>
 
-            {/* Iframe or Fallback container */}
-            <div className="flex-1 bg-[#000000] flex items-center justify-center p-2 sm:p-4 overflow-hidden">
-              {item.previewUrl ? (
+            {/* Preview Frame Container */}
+            <div className="flex-1 bg-[#000000] flex items-center justify-center p-2 sm:p-4 overflow-hidden relative">
+              {previewMode === 'interactive' && item.previewUrl ? (
                 <div
-                  className={`h-full bg-white border-2 border-[#3F3F46] overflow-hidden transition-all duration-300 flex flex-col rounded-none ${
+                  className={`h-full bg-white border-2 border-[#3F3F46] overflow-hidden transition-all duration-300 flex flex-col rounded-none relative ${
                     frameSize === 'mobile'
                       ? 'w-[375px] max-w-full'
                       : frameSize === 'tablet'
@@ -507,12 +543,23 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                   }`}
                 >
                   <iframe
-                    src={item.previewUrl}
+                    src={`/api/preview?url=${encodeURIComponent(item.previewUrl)}`}
                     title={item.titlePt || item.title}
                     className="w-full h-full border-0 bg-white"
                     sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                    loading="lazy"
+                    loading="eager"
                   />
+                </div>
+              ) : item.thumbnailUrl ? (
+                <div className="w-full h-full flex flex-col items-center justify-center overflow-auto p-4 bg-[#09090B] border-2 border-[#3F3F46]">
+                  <img
+                    src={item.thumbnailUrl}
+                    alt={item.titlePt || item.title}
+                    className="max-w-full max-h-full object-contain border-2 border-[#3F3F46]"
+                  />
+                  <div className="mt-3 text-[11px] font-mono text-[#A1A1AA] uppercase tracking-wider">
+                    // CAPTURA VISUAL EM ALTA RESOLUÇÃO
+                  </div>
                 </div>
               ) : (
                 <div className="text-center p-8 text-[#A1A1AA] max-w-md border-2 border-[#3F3F46] bg-[#09090B]">
@@ -523,14 +570,14 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                     CÓDIGO E REGRAS DIRETAS
                   </h4>
                   <p className="text-xs text-[#A1A1AA] uppercase tracking-wider mb-6 leading-relaxed font-mono">
-                    ESTE MODELO FOI CONSTRUÍDO COM REGRAS PURAS PARA GERAR TELAS NO LOVABLE, BOLT OU V0.
+                    ESTE MODELO FOI CONSTRUÍDO COM REGRAS PURAS PARA GERAR TELAS NO ARENA.AI, CODEX OU ANTIGRAVITY.
                   </p>
                   <button
                     onClick={handleCopyPersonalized}
                     className="h-12 px-6 bg-[#DFE104] text-black text-xs font-black uppercase tracking-wider transition rounded-none inline-flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95"
                   >
                     <Copy className="w-4 h-4" />
-                    <span>COPIAR E TESTAR NO LOVABLE</span>
+                    <span>COPIAR PARA O ARENA.AI</span>
                   </button>
                 </div>
               )}

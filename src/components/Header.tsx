@@ -200,11 +200,11 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="hidden lg:flex items-center gap-2 text-xs text-[#A1A1AA] font-bold uppercase tracking-widest font-mono">
             <span>// SUPORTA:</span>
-            <span className="text-[#FAFAFA]">LOVABLE</span>
+            <span className="text-[#FAFAFA]">ARENA.AI</span>
             <span>•</span>
-            <span className="text-[#FAFAFA]">BOLT</span>
+            <span className="text-[#FAFAFA]">CODEX DESKTOP</span>
             <span>•</span>
-            <span className="text-[#FAFAFA]">V0</span>
+            <span className="text-[#FAFAFA]">ANTIGRAVITY</span>
             <span>•</span>
             <span className="text-[#FAFAFA]">CHATGPT</span>
           </div>

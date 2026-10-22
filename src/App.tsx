@@ -389,7 +389,7 @@ export const App: React.FC = () => {
             SUPERDESIGN <span className="text-[#DFE104]">BRASIL</span> // 2026
           </div>
           <p className="font-mono text-[#A1A1AA] uppercase tracking-wider">
-            1.134 PROMPTS DE UI & DESIGN SYSTEMS 100% DESBLOQUEADOS // COMPATÍVEL COM LOVABLE, BOLT, V0, CHATGPT, CLAUDE E CURSOR.
+            1.134 PROMPTS DE UI & DESIGN SYSTEMS 100% DESBLOQUEADOS // OTIMIZADO PARA ARENA.AI, CODEX DESKTOP, ANTIGRAVITY E CHATGPT.
           </p>
           <p className="text-[10px] font-mono text-[#3F3F46] uppercase pt-2">
             PROJETO DE USO PESSOAL CRIADO COM ENGENHARIA REVERSA & KINETIC TYPOGRAPHY.

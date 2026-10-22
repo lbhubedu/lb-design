@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-  Laptop,
-  Layout,
-  Layers,
   Smartphone,
-  ShoppingBag,
-  Briefcase,
-  Zap,
-  Palette,
-  Presentation,
+  Users,
+  LayoutDashboard,
   Wand2,
-  Sparkles,
+  Laptop,
+  Flame,
+  Layers,
+  Palette,
+  Zap,
+  Presentation,
   ChevronRight,
 } from 'lucide-react';
 import { PromptCategoryMeta } from '../types/catalog';
@@ -25,16 +24,16 @@ interface SidebarProps {
 }
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  'sites-vendas': <Laptop className="w-4 h-4 shrink-0" />,
-  'paineis-sistemas': <Layout className="w-4 h-4 shrink-0" />,
+  'apps-aplicativos': <Smartphone className="w-4 h-4 shrink-0" />,
+  'crms-gestao': <Users className="w-4 h-4 shrink-0" />,
+  'dashboards-paineis': <LayoutDashboard className="w-4 h-4 shrink-0" />,
+  'ferramentas-ia': <Wand2 className="w-4 h-4 shrink-0" />,
+  'sistemas-saas': <Laptop className="w-4 h-4 shrink-0" />,
+  'sites-vendas': <Flame className="w-4 h-4 shrink-0" />,
   'pecas-componentes': <Layers className="w-4 h-4 shrink-0" />,
-  'apps-celular': <Smartphone className="w-4 h-4 shrink-0" />,
-  'lojas-produtos': <ShoppingBag className="w-4 h-4 shrink-0" />,
-  'portfolios-criativos': <Briefcase className="w-4 h-4 shrink-0" />,
+  'identidades-design-systems': <Palette className="w-4 h-4 shrink-0" />,
   'efeitos-animacoes': <Zap className="w-4 h-4 shrink-0" />,
-  'estilos-identidade': <Palette className="w-4 h-4 shrink-0" />,
-  'apresentacoes-slides': <Presentation className="w-4 h-4 shrink-0" />,
-  'superpoderes-ia': <Wand2 className="w-4 h-4 shrink-0" />,
+  'apresentacoes-pitch': <Presentation className="w-4 h-4 shrink-0" />,
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({

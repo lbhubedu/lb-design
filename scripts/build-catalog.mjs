@@ -408,75 +408,75 @@ function translateTag(tag) {
 }
 
 export const CATEGORIES_META = {
+  "apps-aplicativos": {
+    id: "apps-aplicativos",
+    labelPt: "Aplicativos (Mobile & Desktop)",
+    shortLabelPt: "Apps & Mobile",
+    descriptionPt: "Interfaces completas para celulares (iOS/Android), web apps responsivos e telas desktop de alta fidelidade.",
+    icon: "Smartphone",
+  },
+  "crms-gestao": {
+    id: "crms-gestao",
+    labelPt: "CRMs & Gestão Comercial",
+    shortLabelPt: "CRMs & Clientes",
+    descriptionPt: "Sistemas de CRM, gestão de leads, funis de vendas, pipelines Kanban, faturamento, invoices e suporte.",
+    icon: "Users",
+  },
+  "dashboards-paineis": {
+    id: "dashboards-paineis",
+    labelPt: "Dashboards & Painéis de Controle",
+    shortLabelPt: "Dashboards & Métricas",
+    descriptionPt: "Painéis de controle, gráficos de receita, métricas analíticas, consoles administrativos e monitoramento.",
+    icon: "LayoutDashboard",
+  },
+  "ferramentas-ia": {
+    id: "ferramentas-ia",
+    labelPt: "Ferramentas de IA & Agentes",
+    shortLabelPt: "Ferramentas de IA",
+    descriptionPt: "Interfaces para IA generativa, assistentes inteligentes, chatbots, playgrounds de prompts e agentes autônomos.",
+    icon: "Wand2",
+  },
+  "sistemas-saas": {
+    id: "sistemas-saas",
+    labelPt: "Sistemas Web & Plataformas SaaS",
+    shortLabelPt: "Sistemas SaaS",
+    descriptionPt: "Plataformas web completas para empresas, áreas de membros, ferramentas colaborativas e portais.",
+    icon: "Laptop",
+  },
   "sites-vendas": {
     id: "sites-vendas",
-    labelPt: "Sites e Páginas de Vendas",
-    shortLabelPt: "Sites de Vendas",
-    descriptionPt: "Páginas completas para apresentar empresas, produtos, serviços, softwares ou capturar clientes.",
-    icon: "Globe",
-  },
-  "paineis-sistemas": {
-    id: "paineis-sistemas",
-    labelPt: "Painéis e Sistemas (Dashboards)",
-    shortLabelPt: "Painéis & Sistemas",
-    descriptionPt: "Telas de sistemas administrativos, financeiros, CRM, controle de vendas e gráficos.",
-    icon: "LayoutDashboard",
+    labelPt: "Páginas de Vendas & Landing Pages",
+    shortLabelPt: "Páginas de Vendas",
+    descriptionPt: "Landing pages de alta conversão para produtos digitais, serviços, lançamentos e marcas de alto padrão.",
+    icon: "Flame",
   },
   "pecas-componentes": {
     id: "pecas-componentes",
-    labelPt: "Peças Prontas do Site (Componentes)",
-    shortLabelPt: "Peças e Botões",
-    descriptionPt: "Partes individuais para melhorar seu site: botões animados, menus, tabelas de preços, login e depoimentos.",
-    icon: "Puzzle",
+    labelPt: "Componentes & Peças de UI",
+    shortLabelPt: "Componentes UI",
+    descriptionPt: "Menus de navegação, tabelas de preço, formulários, modais, cartões bento grid e botões interativos.",
+    icon: "Layers",
   },
-  "apps-celular": {
-    id: "apps-celular",
-    labelPt: "Aplicativos de Celular (Mobile)",
-    shortLabelPt: "Apps de Celular",
-    descriptionPt: "Interfaces pensadas para tela de celular: carteiras digitais, redes sociais, saúde e entregas.",
-    icon: "Smartphone",
+  "identidades-design-systems": {
+    id: "identidades-design-systems",
+    labelPt: "Estilos Visuais & Design Systems",
+    shortLabelPt: "Estilos & Cores",
+    descriptionPt: "Sistemas de identidade visual prontos: Dark Mode, Neumorphism, Efeito Vidro, Luxo Editorial e Minimalismo.",
+    icon: "Palette",
   },
   "efeitos-animacoes": {
     id: "efeitos-animacoes",
-    labelPt: "Efeitos Visuais e Fundos 3D",
-    shortLabelPt: "Efeitos & Fundos",
-    descriptionPt: "Fundos em movimento, efeitos de rolagem (scroll), textos dinâmicos e cursores interativos.",
-    icon: "Sparkles",
+    labelPt: "Efeitos Visuais & Animações 3D",
+    shortLabelPt: "Efeitos & 3D",
+    descriptionPt: "Fundos animados com shaders, simulações 3D, efeitos de rolagem (scroll) e cursores interativos.",
+    icon: "Zap",
   },
-  "estilos-identidade": {
-    id: "estilos-identidade",
-    labelPt: "Estilos Visuais e Cores",
-    shortLabelPt: "Estilos & Cores",
-    descriptionPt: "Identidades visuais prontas: minimalista, luxo, efeito vidro, escuro futurista, retrô e revista.",
-    icon: "Palette",
-  },
-  "portfolios-criativos": {
-    id: "portfolios-criativos",
-    labelPt: "Portfólios, Agências e Criadores",
-    shortLabelPt: "Portfólios",
-    descriptionPt: "Sites pessoais para profissionais, fotógrafos, designers, programadores, estúdios e agências.",
-    icon: "Briefcase",
-  },
-  "lojas-produtos": {
-    id: "lojas-produtos",
-    labelPt: "Lojas Virtuais e Produtos",
-    shortLabelPt: "Lojas Virtuais",
-    descriptionPt: "Páginas para vender produtos físicos, moda, cosméticos, alimentos, eletrônicos e catálogos.",
-    icon: "ShoppingBag",
-  },
-  "apresentacoes-slides": {
-    id: "apresentacoes-slides",
-    labelPt: "Apresentações e Slides",
+  "apresentacoes-pitch": {
+    id: "apresentacoes-pitch",
+    labelPt: "Apresentações & Pitch Decks",
     shortLabelPt: "Apresentações",
-    descriptionPt: "Modelos de apresentações comerciais (Pitch Decks), relatórios visuais e slides interativos.",
+    descriptionPt: "Slides visuais e modelos de pitch deck para investidores, relatórios e demonstrações comerciais.",
     icon: "Presentation",
-  },
-  "superpoderes-ia": {
-    id: "superpoderes-ia",
-    labelPt: "Superpoderes Técnicos (Guias IA)",
-    shortLabelPt: "Guias para IA",
-    descriptionPt: "Instruções especiais para ensinar a IA a criar animações 3D, fotos de produtos, vídeos e regras de design.",
-    icon: "Wand2",
   },
 };
 
@@ -489,114 +489,122 @@ function classifyItem(item) {
   let category = "sites-vendas";
   let subcategory = "Geral";
 
-  if (tags.includes("skill") || title.includes("superdesign skill") || title.includes("skill:")) {
-    category = "superpoderes-ia";
-    if (title.includes("image generation") || text.includes("photography") || text.includes("illustration") || text.includes("prompt engineer")) {
-      subcategory = "Geração de Imagens e Fotos";
-    } else if (title.includes("video generation") || text.includes("video")) {
-      subcategory = "Geração de Vídeos";
-    } else if (title.includes("animation") || title.includes("gsap") || title.includes("threejs")) {
-      subcategory = "Animações e 3D";
-    } else if (title.includes("landing page")) {
-      subcategory = "Fórmulas de Páginas de Vendas";
-    } else {
-      subcategory = "Regras de Design e UI";
-    }
-  } else if (
+  // 1. Ferramentas de IA & Agentes
+  if (
+    tags.includes("skill") ||
+    /\b(ai tool|ai agent|artificial intelligence|prompt engineering|chatbot|copilot|voice agent|image generation|video generation|neural|llm|gpt|claude|gemini|assistant|ai assistant|ai playground|prompt library|agentic|superdesign skill|configgen ai|generative ai)\b/.test(title) ||
+    (/\b(ai agent|ai-powered|prompt engineering|llm model|neural network|autonomous agent|ai copilot|ai chatbot|prompt generator|ai assistant)\b/.test(text) && !title.includes("landing page"))
+  ) {
+    category = "ferramentas-ia";
+    if (/\b(image generation|photography|illustration|art generator)\b/.test(text)) subcategory = "Geradores de Imagem & Arte";
+    else if (/\b(video generation|video|cinematic)\b/.test(text)) subcategory = "Geradores de Vídeo";
+    else if (/\b(agent|autonomous|workflow|bot|assistant|voice)\b/.test(text)) subcategory = "Agentes & Assistentes";
+    else if (/\b(chat|prompt|playground|llm|gpt)\b/.test(text)) subcategory = "Chatbots & Playgrounds de Prompts";
+    else subcategory = "Superpoderes & Skills para IA";
+  }
+  // 2. CRMs & Gestão Comercial
+  else if (
+    /\b(crm|leadflow|pipeline|customer relationship|client management|sales pipeline|sales funnel|funnel|deal|deals|invoice|invoices|telecom crm|customer portal|billing management|helpdesk|support desk|client portal)\b/.test(title) ||
+    (/\b(crm dashboard|lead management|customer portal|customer management|sales crm|invoices list|invoice editor)\b/.test(text) && !title.includes("landing page"))
+  ) {
+    category = "crms-gestao";
+    if (/\b(sales|funnel|pipeline|deal|deals|leadflow|lead)\b/.test(text)) subcategory = "Funis de Vendas & Leads";
+    else if (/\b(invoice|invoices|billing|finance|payment)\b/.test(text)) subcategory = "Faturamento & Invoices";
+    else if (/\b(helpdesk|support|ticket|client portal)\b/.test(text)) subcategory = "Suporte & Portais de Clientes";
+    else subcategory = "CRMs de Clientes & Vendas";
+  }
+  // 3. Dashboards & Painéis de Controle
+  else if (
+    tags.includes("dashboard") ||
+    /\b(dashboard|analytics|admin console|metrics|kpi|telemetry|revenue dashboard|monitoring|trading dashboard|admin panel|console|tracker|kanban|saas analytics)\b/.test(title) ||
+    /\b(analytics dashboard|admin dashboard|metrics dashboard|financial dashboard|data console|management console)\b/.test(desc)
+  ) {
+    category = "dashboards-paineis";
+    if (/\b(revenue|billing|financial|trading|finance|crypto|bank)\b/.test(text)) subcategory = "Painéis Financeiros & Receita";
+    else if (/\b(analytics|data|metrics|chart|telemetry)\b/.test(text)) subcategory = "Métricas & Análise de Dados";
+    else if (/\b(devops|ci\/cd|developer|security|endpoint|waf|deployments)\b/.test(text)) subcategory = "Consoles Técnicos & Dev";
+    else subcategory = "Painéis Administrativos Gerais";
+  }
+  // 4. Aplicativos (Mobile & Desktop)
+  else if (
+    tags.includes("mobile app") ||
+    tags.includes("mobile") ||
+    item.previewDevice === "mobile" ||
+    /\b(mobile app|ios app|android app|app store|wallet app|health app|fitness app|chat app|habit tracker|desktop application|ios interface|mobile interface|wallet home|wellness app)\b/.test(title) ||
+    /\b(mobile app|ios app|wallet home|mobile screen)\b/.test(desc)
+  ) {
+    category = "apps-aplicativos";
+    if (/\b(wallet|fintech|bank|crypto|finance|pay)\b/.test(text)) subcategory = "Apps Financeiros & Carteiras";
+    else if (/\b(health|fitness|wellness|meditation|workout)\b/.test(text)) subcategory = "Saúde, Treino & Bem-Estar";
+    else if (/\b(social|chat|messenger|community|feed)\b/.test(text)) subcategory = "Redes Sociais & Mensagens";
+    else subcategory = "Apps de Produtividade & Utilidades";
+  }
+  // 5. Apresentações & Pitch Decks
+  else if (
     tags.includes("presentation") ||
     tags.includes("pitch-deck") ||
     tags.includes("slide-deck") ||
     /\b(deck|slides?|presentation|keynote|pitch)\b/.test(title) ||
     /\b(pitch deck|presentation deck|slide deck)\b/.test(desc)
   ) {
-    category = "apresentacoes-slides";
-    subcategory = "Pitch Decks e Apresentações";
-  } else if (
+    category = "apresentacoes-pitch";
+    subcategory = "Pitch Decks & Apresentações";
+  }
+  // 6. Componentes & Peças de UI
+  else if (
     tags.includes("ui component") ||
     tags.includes("component") ||
     /\b(button|switch|dock|nav|navigation|menu|stepper|card stack|marquee|carousel|input|modal|widget|accordion|pricing table|testimonial|footer|tab bar|tabs)\b/.test(title) ||
     (/\b(carousel|card stack|dock menu|navbar|navigation bar|pricing table|hero component)\b/.test(desc) && !text.includes("landing page"))
   ) {
     category = "pecas-componentes";
-    if (/\b(button|switch|toggle|cta)\b/.test(text)) subcategory = "Botões e Interruptores";
-    else if (/\b(nav|navigation|menu|dock|sidebar|header)\b/.test(text)) subcategory = "Menus e Navegação";
-    else if (/\b(testimonial|review|social-proof|marquee)\b/.test(text)) subcategory = "Depoimentos e Avaliações";
-    else if (/\b(pricing|billing|plan)\b/.test(text)) subcategory = "Tabelas de Preços";
-    else if (/\b(login|auth|signup|registration|input|form)\b/.test(text)) subcategory = "Login, Cadastro e Formulários";
-    else subcategory = "Cartões, Galerias e Blocos";
-  } else if (
-    tags.includes("dashboard") ||
-    /\b(dashboard|crm|admin|console|analytics|inventory|platform|tracker|portal|workspace|kanban|saas analytics)\b/.test(title) ||
-    /\b(analytics dashboard|admin dashboard|crm dashboard|management console|metrics dashboard)\b/.test(desc)
-  ) {
-    category = "paineis-sistemas";
-    if (/\b(crm|sales|lead|customer|invoice|telecom)\b/.test(text)) subcategory = "CRM, Vendas e Clientes";
-    else if (/\b(fintech|finance|revenue|billing|crypto|trading)\b/.test(text)) subcategory = "Painéis Financeiros";
-    else if (/\b(analytics|data|chart|metrics)\b/.test(text)) subcategory = "Métricas e Gráficos";
-    else if (/\b(developer|ci\/cd|issue|endpoint|waf|security|terminal|devops)\b/.test(text)) subcategory = "Sistemas Técnicos e Dev";
-    else subcategory = "Painéis Administrativos Gerais";
-  } else if (
-    tags.includes("mobile app") ||
-    tags.includes("mobile") ||
-    item.previewDevice === "mobile" ||
-    /\b(mobile app|ios|wallet home|wellness app|social app|iphone)\b/.test(title) ||
-    /\b(mobile app|ios interface|mobile interface)\b/.test(desc)
-  ) {
-    category = "apps-celular";
-    if (/\b(fintech|wallet|bank|crypto|finance|payment)\b/.test(text)) subcategory = "Apps Financeiros e Carteiras";
-    else if (/\b(wellness|health|fitness|meditation|clinic|care)\b/.test(text)) subcategory = "Saúde, Fitness e Bem-Estar";
-    else if (/\b(social|chat|community|music|creator|feed)\b/.test(text)) subcategory = "Redes Sociais, Chat e Música";
-    else subcategory = "Utilitários e Produtividade";
-  } else if (
-    tags.includes("ecommerce") ||
-    /\b(e-commerce|ecommerce|store|shop|boutique|shampoo|superfoods|opticals|clothing|apparel|sneakers)\b/.test(title) ||
-    /\b(ecommerce store|online shop|checkout experience|product catalog)\b/.test(desc)
-  ) {
-    category = "lojas-produtos";
-    if (/\b(fashion|clothing|luxury|perfume|beauty|cosmetics|opticals|skincare)\b/.test(text)) subcategory = "Moda, Beleza e Luxo";
-    else if (/\b(food|organic|coffee|restaurant|drink|bakery)\b/.test(text)) subcategory = "Alimentos, Bebidas e Orgânicos";
-    else subcategory = "Produtos Físicos e Eletrônicos";
-  } else if (
-    tags.includes("portfolio") ||
-    /\b(portfolio|archive|resume|cv|link-in-bio|creator|agency|studio)\b/.test(title) ||
-    /\b(personal portfolio|creative portfolio|agency website|design studio)\b/.test(desc)
-  ) {
-    category = "portfolios-criativos";
-    if (/\b(agency|studio|architect)\b/.test(text)) subcategory = "Agências, Estúdios e Arquitetura";
-    else if (/\b(developer|terminal|3d|three\.js|engineer)\b/.test(text)) subcategory = "Programadores e Criadores 3D";
-    else subcategory = "Portfólios Pessoais e Designers";
-  } else if (
+    if (/\b(button|switch|toggle|cta)\b/.test(text)) subcategory = "Botões & Interruptores";
+    else if (/\b(nav|navigation|menu|dock|sidebar|header)\b/.test(text)) subcategory = "Menus & Navegação";
+    else if (/\b(pricing|billing|plan|subscription)\b/.test(text)) subcategory = "Tabelas de Preços & Planos";
+    else if (/\b(login|auth|signup|registration|input|form)\b/.test(text)) subcategory = "Login, Cadastro & Formulários";
+    else subcategory = "Cartões, Bento Grids & Blocos";
+  }
+  // 7. Efeitos Visuais & Animações 3D
+  else if (
     (tags.includes("animation") && !tags.includes("landing page") && !tags.includes("landing-page") && !tags.includes("style")) ||
-    /\b(background|shader|cursor|scroll animation|text animation|loading state|hover effect|particle|webgl|fluid simulation)\b/.test(title)
+    /\b(background animation|shader|cursor effect|particle|webgl|fluid simulation|threejs|gsap)\b/.test(title)
   ) {
     category = "efeitos-animacoes";
-    if (/\b(background|shader|aurora|plasma|ether|stars|rays|waves|prism|mesh)\b/.test(title)) subcategory = "Fundos Animados e 3D";
-    else if (/\b(text|typing|headline|rolodex|shiny|kinetic)\b/.test(title)) subcategory = "Textos com Efeito";
+    if (/\b(background|shader|aurora|plasma|ether|stars|rays|waves|prism|mesh)\b/.test(title)) subcategory = "Fundos Animados & Shaders 3D";
+    else if (/\b(text|typing|headline|rolodex|shiny|kinetic)\b/.test(title)) subcategory = "Textos com Efeito & Tipografia";
     else if (/\b(scroll|horizontal|stacking|journey|timeline)\b/.test(title)) subcategory = "Efeitos ao Rolar a Página";
-    else if (/\b(cursor|spotlight|hover|pressure)\b/.test(title)) subcategory = "Efeitos de Mouse e Toque";
-    else subcategory = "Animações Interativas";
-  } else if (
+    else subcategory = "Efeitos de Mouse & Interações";
+  }
+  // 8. Sistemas Web & Plataformas SaaS
+  else if (
+    /\b(platform|workspace|portal|b2b software|developer platform|cloud platform|collab|editor|management system|saas platform)\b/.test(title)
+  ) {
+    category = "sistemas-saas";
+    subcategory = "Plataformas SaaS & Trabalho";
+  }
+  // 9. Páginas de Vendas & Landing Pages
+  else if (
     tags.includes("landing page") ||
     tags.includes("landing-page") ||
     tags.includes("landing") ||
     tags.includes("page") ||
-    /\b(landing|waitlist|launch|saas|hero|website|home page|homepage|agency page)\b/.test(title) ||
+    /\b(landing|waitlist|launch|saas|hero|website|home page|homepage|sales page)\b/.test(title) ||
     /\b(landing page|landing-page|waitlist page|saas website)\b/.test(desc)
   ) {
     category = "sites-vendas";
-    if (/\b(ai|agent|neural|llm|gpt|voice|audio)\b/.test(text)) subcategory = "Inteligência Artificial (IA)";
-    else if (/\b(developer|devtool|cli|api|cloud|cyber|security)\b/.test(text)) subcategory = "Tecnologia e Ferramentas";
-    else if (/\b(health|clinic|medical|wellness|dental|therapy|dra\.)\b/.test(text)) subcategory = "Saúde, Clínicas e Bem-Estar";
-    else if (/\b(fintech|finance|bank|payment|wealth|accounting)\b/.test(text)) subcategory = "Finanças e Negócios";
-    else if (/\b(waitlist|beta|launch|countdown)\b/.test(text)) subcategory = "Lançamentos e Lista VIP";
-    else if (/\b(luxury|editorial|serif|magazine|fashion|real estate)\b/.test(text)) subcategory = "Marcas Elegantes e Editorial";
-    else subcategory = "Software (SaaS) e Empresas";
-  } else {
-    category = "estilos-identidade";
-    if (/\b(dark|noir|midnight|cyber)\b/.test(text)) subcategory = "Estilos Escuros e Noturnos";
-    else if (/\b(glass|fluid|liquid|clay)\b/.test(text)) subcategory = "Efeito Vidro, Fluido e 3D";
-    else if (/\b(editorial|luxury|serif|swiss)\b/.test(text)) subcategory = "Clássico, Revista e Luxo";
-    else subcategory = "Minimalista, Brutalista e Retrô";
+    if (/\b(ai|agent|neural|llm|gpt)\b/.test(text)) subcategory = "Páginas de IA & Ferramentas";
+    else if (/\b(waitlist|beta|launch|countdown)\b/.test(text)) subcategory = "Lançamentos & Lista de Espera";
+    else if (/\b(health|clinic|medical|wellness|dental)\b/.test(text)) subcategory = "Saúde, Clínicas & Bem-Estar";
+    else if (/\b(finance|bank|fintech|wealth|accounting)\b/.test(text)) subcategory = "Finanças & Negócios";
+    else subcategory = "Software (SaaS) & Empresas";
+  }
+  // 10. Identidades Visuais & Design Systems
+  else {
+    category = "identidades-design-systems";
+    if (/\b(dark|noir|midnight|cyber)\b/.test(text)) subcategory = "Estilos Noturnos & Dark Mode";
+    else if (/\b(glass|fluid|liquid|clay)\b/.test(text)) subcategory = "Efeito Vidro & Neumorphism";
+    else if (/\b(editorial|luxury|serif|swiss)\b/.test(text)) subcategory = "Elegante, Revista & Luxo";
+    else subcategory = "Minimalista, Brutalista & Retrô";
   }
 
   // Visual theme (Clima Visual)

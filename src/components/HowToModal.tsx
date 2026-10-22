@@ -94,65 +94,45 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                <a
-                  href="https://lovable.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
-                >
+                <div className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none">
                   <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
-                    <span>LOVABLE (LOVABLE.DEV)</span>
+                    <span>ARENA.AI</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                   <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
-                    CRIA O WEB APP COMPLETO COM NAVEGAÇÃO.
+                    PROMPTS AUTO-CONTIDOS EM COMPONENTE ÚNICO PARA COMPARAÇÃO.
                   </div>
-                </a>
+                </div>
 
-                <a
-                  href="https://bolt.new"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
-                >
+                <div className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none">
                   <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
-                    <span>BOLT.NEW</span>
+                    <span>CODEX DESKTOP</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                   <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
-                    CRIA E EXECUTA CÓDIGO NO NAVEGADOR EM SEGUNDOS.
+                    ESTRUTURADO PARA PROJETOS REAIS NO CODEX DESKTOP E CHATGPT.
                   </div>
-                </a>
+                </div>
 
-                <a
-                  href="https://v0.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
-                >
+                <div className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none">
                   <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
-                    <span>V0 DA VERCEL (V0.DEV)</span>
+                    <span>ANTIGRAVITY DESKTOP</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                   <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
-                    COMPONENTES LIMPOS EM REACT E TAILWIND.
+                    INSTRUÇÕES DIRETAS PARA O AGENTE DE CÓDIGO NO WORKSPACE.
                   </div>
-                </a>
+                </div>
 
-                <a
-                  href="https://chatgpt.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none"
-                >
+                <div className="p-4 border-2 border-[#3F3F46] bg-[#27272A] hover:bg-[#DFE104] hover:text-black hover:border-[#DFE104] transition group rounded-none">
                   <div className="font-black text-xs uppercase tracking-wider flex items-center justify-between text-[#FAFAFA] group-hover:text-black">
-                    <span>CHATGPT OU CLAUDE</span>
+                    <span>CHATGPT (GPT-4O)</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                   <div className="text-[11px] text-[#A1A1AA] group-hover:text-black/80 mt-1 uppercase font-medium">
-                    PEÇA O CÓDIGO FONTE E EXPLICAÇÕES PASSO A PASSO.
+                    GERAÇÃO DE CÓDIGO FONTE COMPLETO E EXPLICAÇÕES PASSO A PASSO.
                   </div>
-                </a>
+                </div>
               </div>
             </div>
           </div>

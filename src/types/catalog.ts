@@ -106,4 +106,4 @@ export interface DesignSystemsCatalog {
 
 export type ViewMode = 'grid' | 'compact' | 'studio';
 export type ActiveTab = 'prompts' | 'design-systems' | 'favorites';
-export type AiTarget = 'lovable' | 'bolt' | 'v0' | 'chatgpt' | 'claude' | 'cursor';
+export type AiTarget = 'arena' | 'codex' | 'antigravity' | 'chatgpt';

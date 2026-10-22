@@ -40,7 +40,7 @@ export const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
             <span>147 SISTEMAS DESIGN.MD</span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
-            <span>LOVABLE • BOLT.NEW • V0 • CHATGPT • CLAUDE • CURSOR</span>
+            <span>ARENA.AI • CODEX DESKTOP • ANTIGRAVITY • CHATGPT</span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
             <span className="flex items-center gap-2">
               <span className={isAcid ? 'text-black' : 'text-[#DFE104]'}>★</span>
