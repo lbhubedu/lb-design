@@ -29,19 +29,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#DFE104] text-[#000000] text-xs font-bold uppercase tracking-widest rounded-none">
             <span className="w-2 h-2 bg-black animate-ping" />
-            BIBLIOTECA PESSOAL DESBLOQUEADA
+            RECURSO EDUCACIONAL ABERTO (REA) — 100% GRÁTIS
           </span>
           <span className="text-xs uppercase tracking-widest text-[#A1A1AA] font-mono hidden sm:inline-block">
-            // VERSÃO BRASIL 2026
+            // BIBLIOTECA ABERTA · 2026
           </span>
         </div>
 
         {/* Massive Viewport Headline */}
         <div className="mb-8">
           <h1 className="text-[clamp(2.8rem,9.5vw,10.5rem)] font-extrabold uppercase leading-[0.82] tracking-tighter text-[#FAFAFA] font-heading">
-            SUPERDESIGN
+            LB
             <br />
-            <span className="text-[#DFE104]">BRASIL.</span>
+            <span className="text-[#DFE104]">DESIGN.</span>
           </h1>
           <p className="mt-4 text-xl sm:text-2xl md:text-3xl text-[#A1A1AA] font-medium tracking-tight max-w-4xl uppercase font-heading">
             BIBLIOTECA ESPECIALIZADA EM APPS, CRMS, DASHBOARDS E FERRAMENTAS DE IA.

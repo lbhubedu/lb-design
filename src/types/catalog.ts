@@ -48,6 +48,8 @@ export interface PromptItem {
   };
   creatorName: string;
   createdAt: string;
+  source?: 'superdesign' | 'superdesign-prompts' | 'kibo-ui';
+  sourceUrl?: string;
   chunkIndex: number;
 }
 

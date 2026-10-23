@@ -7,6 +7,8 @@ interface MarqueeBannerProps {
   direction?: 'left' | 'right';
   className?: string;
   children?: React.ReactNode;
+  promptsCount?: number;
+  designSystemsCount?: number;
 }
 
 export const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
@@ -15,6 +17,8 @@ export const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
   direction = 'left',
   className = '',
   children,
+  promptsCount,
+  designSystemsCount,
 }) => {
   const isAcid = variant === 'acid';
 
@@ -35,16 +39,16 @@ export const MarqueeBanner: React.FC<MarqueeBannerProps> = ({
           <div className="flex items-center gap-8 px-4 text-sm sm:text-base md:text-lg font-bold tracking-tighter uppercase font-heading">
             <span className="flex items-center gap-2">
               <span className={isAcid ? 'text-black' : 'text-[#DFE104]'}>⚡</span>
-              <span>1.134 PROMPTS DE UI DESBLOQUEADOS</span>
+              <span>{(promptsCount ?? 1317).toLocaleString('pt-BR')} PROMPTS DE UI DESBLOQUEADOS</span>
             </span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
-            <span>147 SISTEMAS DESIGN.MD</span>
+            <span>{designSystemsCount ?? 148} SISTEMAS DESIGN.MD</span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
             <span>ARENA.AI • CODEX DESKTOP • ANTIGRAVITY • CHATGPT</span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
             <span className="flex items-center gap-2">
               <span className={isAcid ? 'text-black' : 'text-[#DFE104]'}>★</span>
-              <span>ZERO PAYWALL // 100% EM PORTUGUÊS</span>
+              <span>REA // 100% EM PORTUGUÊS // ZERO PAYWALL</span>
             </span>
             <span className={isAcid ? 'text-black/50' : 'text-[#3F3F46]'}>///</span>
           </div>

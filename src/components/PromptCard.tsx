@@ -114,6 +114,12 @@ export const PromptCard: React.FC<PromptCardProps> = ({
                 {item.themeLabelPt.split('(')[0].trim()}
               </span>
             )}
+
+            {item.source && item.source !== 'superdesign' && (
+              <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white border border-emerald-700">
+                OPEN SOURCE
+              </span>
+            )}
           </div>
 
           {/* Favorite heart button */}

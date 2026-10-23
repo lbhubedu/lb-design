@@ -35,19 +35,19 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-3 text-left group transition cursor-pointer"
             >
               <div className="w-10 h-10 bg-[#DFE104] flex items-center justify-center text-black font-black text-xl rounded-none group-hover:scale-105 transition-transform">
-                SD
+                LB
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-black text-lg sm:text-xl tracking-tighter text-[#FAFAFA] font-heading uppercase">
-                    SUPERDESIGN <span className="text-[#DFE104]">BRASIL</span>
+                    LB <span className="text-[#DFE104]">DESIGN</span>
                   </span>
                   <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold bg-[#27272A] text-[#DFE104] border border-[#3F3F46] uppercase tracking-wider rounded-none">
-                    100% DESBLOQUEADO
+                    BIBLIOTECA ABERTA
                   </span>
                 </div>
                 <p className="text-[11px] text-[#A1A1AA] font-bold uppercase tracking-widest hidden sm:block">
-                  BIBLIOTECA PESSOAL DE PROMPTS & DESIGN SYSTEMS
+                  RECURSO EDUCACIONAL ABERTO (REA) DE PROMPTS & DESIGN SYSTEMS
                 </p>
               </div>
             </button>

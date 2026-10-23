@@ -217,8 +217,8 @@ export const App: React.FC = () => {
         onSelectTab={setActiveTab}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        totalPrompts={catalog?.totalPrompts || 1134}
-        totalDesignSystems={designSystems?.total || 147}
+        totalPrompts={catalog?.totalPrompts || 1317}
+        totalDesignSystems={designSystems?.total || 148}
         favoriteCount={favorites.length}
         onOpenHowTo={() => setIsHowToOpen(true)}
       />
@@ -227,14 +227,19 @@ export const App: React.FC = () => {
       {activeTab === 'prompts' && !searchQuery && selectedCategory === 'all' && (
         <>
           <HeroSection
-            totalPrompts={catalog?.totalPrompts || 1134}
-            totalDesignSystems={designSystems?.total || 147}
+            totalPrompts={catalog?.totalPrompts || 1317}
+            totalDesignSystems={designSystems?.total || 148}
             onExploreClick={scrollToCatalog}
             onOpenHowTo={() => setIsHowToOpen(true)}
           />
 
           {/* Continuous Kinetic Marquee */}
-          <MarqueeBanner variant="acid" speed={80} />
+          <MarqueeBanner
+            variant="acid"
+            speed={80}
+            promptsCount={catalog?.totalPrompts}
+            designSystemsCount={designSystems?.total}
+          />
         </>
       )}
 
@@ -246,13 +251,13 @@ export const App: React.FC = () => {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 border-2 border-[#3F3F46] bg-[#09090B]">
             <div className="w-16 h-16 bg-[#DFE104] text-black flex items-center justify-center mb-6 font-black text-2xl font-heading animate-pulse">
-              SD
+              LB
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-[#FAFAFA] font-heading uppercase tracking-tighter">
               CARREGANDO BIBLIOTECA COMPLETA...
             </h2>
             <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mt-2">
-              SINCRONIZANDO 1.134 PROMPTS E 147 SISTEMAS DE DESIGN.
+              SINCRONIZANDO PROMPTS E SISTEMAS DE DESIGN.
             </p>
           </div>
         ) : error ? (
@@ -285,7 +290,7 @@ export const App: React.FC = () => {
               onSelectCategory={setSelectedCategory}
               selectedSubcategory={selectedSubcategory}
               onSelectSubcategory={setSelectedSubcategory}
-              totalPrompts={catalog?.totalPrompts || 1134}
+              totalPrompts={catalog?.totalPrompts || 1317}
             />
 
             {/* Main Area */}
@@ -301,7 +306,7 @@ export const App: React.FC = () => {
                 sortBy={sortBy}
                 onSortChange={setSortBy}
                 filteredCount={filteredItems.length}
-                totalCount={catalog?.totalPrompts || 1134}
+                totalCount={catalog?.totalPrompts || 1317}
                 onResetFilters={handleResetFilters}
               />
 
@@ -386,13 +391,30 @@ export const App: React.FC = () => {
       <footer className="border-t-2 border-[#3F3F46] bg-[#09090B] py-12 text-center text-xs">
         <div className="max-w-[95vw] mx-auto px-4 sm:px-6 space-y-3">
           <div className="text-xl sm:text-2xl font-black uppercase tracking-tighter text-[#FAFAFA] font-heading">
-            SUPERDESIGN <span className="text-[#DFE104]">BRASIL</span> // 2026
+            LB <span className="text-[#DFE104]">DESIGN</span> // 2026
           </div>
           <p className="font-mono text-[#A1A1AA] uppercase tracking-wider">
-            1.134 PROMPTS DE UI & DESIGN SYSTEMS 100% DESBLOQUEADOS // OTIMIZADO PARA ARENA.AI, CODEX DESKTOP, ANTIGRAVITY E CHATGPT.
+            {(catalog?.totalPrompts || 0).toLocaleString('pt-BR')} PROMPTS DE UI & {designSystems?.total || 0} DESIGN SYSTEMS EM PORTUGUÊS // OTIMIZADO PARA ARENA.AI, CODEX DESKTOP, ANTIGRAVITY E CHATGPT.
           </p>
-          <p className="text-[10px] font-mono text-[#3F3F46] uppercase pt-2">
-            PROJETO DE USO PESSOAL CRIADO COM ENGENHARIA REVERSA & KINETIC TYPOGRAPHY.
+          <p className="text-[10px] font-mono text-[#A1A1AA] uppercase pt-2">
+            <a
+              href="https://superdesign.dev/library"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#DFE104] hover:underline"
+            >
+              RECURSO EDUCACIONAL ABERTO (REA)
+            </a>{' '}
+            // CONTEÚDO ORIGINAL: CATÁLOGO PÚBLICO{' '}
+            <a
+              href="https://superdesign.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#DFE104] hover:underline"
+            >
+              SUPERDESIGN.DEV
+            </a>{' '}
+            (CC0) + KIBO UI (MIT) // ORGANIZAÇÃO, TRADUÇÕES E INTERFACE: CC BY 4.0.
           </p>
         </div>
       </footer>

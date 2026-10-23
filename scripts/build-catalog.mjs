@@ -302,6 +302,10 @@ function translateTitleToPt(title) {
   if (TITLE_EXACT_MAP[trimmed]) return TITLE_EXACT_MAP[trimmed];
   let pt = trimmed;
   for (const [regex, replacement] of PREFIX_RULES) pt = pt.replace(regex, replacement);
+  // Aplica o vocabulário PT em títulos que ficariam em inglês
+  if (/\b(landing|page|hero|dashboard|style|dark|light|portfolio|store|ecommerce|e-commerce|app|background|button|card|nav|pricing|testimonial|deck|gallery|animation|animated|editorial|minimal|luxury|brutalist|glassmorphism|waitlist|login|mobile|design system|website|mode)\b/i.test(pt)) {
+    for (const [regex, replacement] of WORD_REPLACEMENTS) pt = pt.replace(regex, replacement);
+  }
   return pt;
 }
 
@@ -664,23 +668,23 @@ function buildFriendlyPtSummary(item, classification, structured) {
   const compCount = structured?.special_ui_components?.length || 0;
 
   let baseDesc = "";
-  if (classification.category === "superpoderes-ia") {
+  if (classification.category === "ferramentas-ia") {
     baseDesc = `Guia prático de ${classification.subcategory.toLowerCase()} pronto para colar na IA e ensinar técnicas profissionais passo a passo.`;
-  } else if (classification.category === "paineis-sistemas") {
+  } else if (
+    classification.category === "crms-gestao" ||
+    classification.category === "dashboards-paineis" ||
+    classification.category === "sistemas-saas"
+  ) {
     baseDesc = `Interface de sistema (${classification.subcategory.toLowerCase()}) com visual ${classification.themeLabelPt.toLowerCase()}, organizada para fácil leitura de dados e ações rápidas.`;
   } else if (classification.category === "pecas-componentes") {
     baseDesc = `Componente visual de ${classification.subcategory.toLowerCase()} com acabamento ${classification.themeLabelPt.toLowerCase()} para adicionar ao seu site ou sistema.`;
   } else if (classification.category === "efeitos-animacoes") {
     baseDesc = `Efeito visual interativo (${classification.subcategory.toLowerCase()}) para deixar o fundo ou a rolagem do seu site muito mais atraente.`;
-  } else if (classification.category === "apps-celular") {
-    baseDesc = `Tela de aplicativo mobile (${classification.subcategory.toLowerCase()}) com estilo ${classification.themeLabelPt.toLowerCase()} e navegação pensada para o toque.`;
-  } else if (classification.category === "lojas-produtos") {
-    baseDesc = `Página de vitrine e vendas (${classification.subcategory.toLowerCase()}) com visual ${classification.themeLabelPt.toLowerCase()} para destacar produtos e aumentar conversões.`;
-  } else if (classification.category === "portfolios-criativos") {
-    baseDesc = `Modelo de portfólio e apresentação profissional (${classification.subcategory.toLowerCase()}) com visual ${classification.themeLabelPt.toLowerCase()}.`;
-  } else if (classification.category === "apresentacoes-slides") {
+  } else if (classification.category === "apps-aplicativos") {
+    baseDesc = `Tela de aplicativo (${classification.subcategory.toLowerCase()}) com estilo ${classification.themeLabelPt.toLowerCase()} e navegação pensada para o toque.`;
+  } else if (classification.category === "apresentacoes-pitch") {
     baseDesc = `Apresentação visual de slides com estética ${classification.themeLabelPt.toLowerCase()} para apresentar projetos, empresas ou propostas.`;
-  } else if (classification.category === "estilos-identidade") {
+  } else if (classification.category === "identidades-design-systems") {
     baseDesc = `Identidade visual completa (${classification.subcategory.toLowerCase()}) definindo cores, fontes, botões e sensação de ${classification.themeLabelPt.toLowerCase()}.`;
   } else {
     baseDesc = `Página completa (${classification.subcategory.toLowerCase()}) no estilo ${classification.themeLabelPt.toLowerCase()}, pronta para adaptar para o seu negócio.`;
@@ -697,26 +701,95 @@ function buildFriendlyPtSummary(item, classification, structured) {
 
 function buildIdealForPt(classification) {
   const map = {
+    "Superpoderes & Skills para IA": "Ensinar a IA a gerar imagens, vídeos, 3D e efeitos avançados",
+    "Geradores de Imagem & Arte": "Criar fotos de produtos, ilustrações e artes geradas por IA",
+    "Geradores de Vídeo": "Gerar vídeos e cenas cinematográficas com IA",
+    "Agentes & Assistentes": "Chatbots inteligentes, agentes autônomos e automações",
+    "Chatbots & Playgrounds de Prompts": "Ferramentas de conversa com IA e testes de prompts",
+    "Funis de Vendas & Leads": "Acompanhar leads, negociações e funis de vendas",
+    "Faturamento & Invoices": "Emitir cobranças, faturas e controlar pagamentos",
+    "Suporte & Portais de Clientes": "Central de atendimento e áreas exclusivas do cliente",
+    "CRMs de Clientes & Vendas": "Gerenciar clientes, contatos e histórico de vendas",
+    "Painéis Financeiros & Receita": "Acompanhar faturamento, receita e indicadores financeiros",
+    "Métricas & Análise de Dados": "Painéis de métricas, gráficos e relatórios visuais",
+    "Consoles Técnicos & Dev": "Monitorar servidores, deploys, logs e segurança",
+    "Painéis Administrativos Gerais": "Áreas de membros, plataformas de cursos (EAD), gestão interna e portais",
+    "Apps Financeiros & Carteiras": "Carteiras digitais, bancos e aplicativos de pagamento",
+    "Saúde, Treino & Bem-Estar": "Aplicativos de saúde, academia, meditação e bem-estar",
+    "Redes Sociais & Mensagens": "Redes sociais, chats e comunidades",
+    "Apps de Produtividade & Utilidades": "Organização pessoal, tarefas e utilidades do dia a dia",
+    "Boas-Vindas & Onboarding": "Fluxos de cadastro, apresentação e primeiros passos no app",
+    "Pitch Decks & Apresentações": "Apresentar projetos, empresas e propostas com slides",
+    "Botões & Interruptores": "Destacar botões de compra, cadastro ou ações principais do site",
+    "Menus & Navegação": "Deixar o menu do topo ou barra lateral mais moderno e fácil de usar",
+    "Tabelas de Preços & Planos": "Apresentar planos mensais/anuais de forma clara para vender mais",
+    "Login, Cadastro & Formulários": "Telas de entrada do sistema, cadastro de clientes e caixas de busca",
+    "Cartões, Bento Grids & Blocos": "Organizar fotos, recursos ou serviços em cartões bonitos e interativos",
+    "E-mails & Newsletters": "Comunicar clientes e disparar campanhas por e-mail",
+    "Fundos Animados & Shaders 3D": "Fundos de site com movimento, 3D e shaders",
+    "Textos com Efeito & Tipografia": "Títulos e textos com efeitos visuais animados",
+    "Efeitos ao Rolar a Página": "Animações que reagem à rolagem do site",
+    "Efeitos de Mouse & Interações": "Interações que respondem ao cursor do mouse",
+    "Plataformas SaaS & Trabalho": "Plataformas web completas e trabalho em equipe",
+    "Páginas de IA & Ferramentas": "Landing pages de produtos de IA e ferramentas técnicas",
+    "Lançamentos & Lista de Espera": "Lançamento de cursos, infoprodutos, eventos e aplicativos",
+    "Blogs & Editoriais": "Blogs, revistas digitais e portais de conteúdo",
+    "Lojas & E-commerce": "Vitrines e páginas de produto para vender online",
+    "Portfólios & Criadores": "Sites pessoais de designers, desenvolvedores e estúdios",
+    "Estilos Noturnos & Dark Mode": "Projetos com identidade escura e moderna",
+    "Efeito Vidro & Neumorphism": "Interfaces com efeito de vidro ou relevo suave",
+    "Elegante, Revista & Luxo": "Marcas premium, editoriais e design de luxo",
+    "Minimalista, Brutalista & Retrô": "Estilos visuais marcantes: minimalista, brutalista ou retrô",
+    "Identidades Visuais & Estilos": "Definir a identidade visual completa do projeto",
+    "Componentes Open Source (shadcn)": "Projetos React + Tailwind que já usam shadcn/ui",
     "Inteligência Artificial (IA)": "Ferramentas de IA, startups de tecnologia, chatbots e automações",
-    "Tecnologia e Ferramentas": "Softwares, sistemas web, ferramentas digitais e serviços técnicos",
     "Saúde, Clínicas e Bem-Estar": "Clínicas médicas, odontologia, estética, psicologia, academias e bem-estar",
     "Finanças e Negócios": "Consultorias financeiras, contabilidade, bancos digitais, investimentos e B2B",
-    "Lançamentos e Lista VIP": "Lançamento de cursos, infoprodutos, eventos, aplicativos e listas de espera",
     "Marcas Elegantes e Editorial": "Marcas premium, arquitetura, advocacia, moda, gastronomia e estúdios",
     "Software (SaaS) e Empresas": "Sites de empresas, apresentação de serviços, plataformas e produtos digitais",
     "CRM, Vendas e Clientes": "Sistemas de gestão de clientes, funil de vendas, atendimento e faturamento",
-    "Painéis Financeiros": "Controle financeiro, fluxo de caixa, carteiras e relatórios de receita",
-    "Métricas e Gráficos": "Painéis de indicadores (KPIs), marketing, tráfego e relatórios visuais",
-    "Sistemas Técnicos e Dev": "Monitoramento de servidores, segurança, logs e administração técnica",
-    "Painéis Administrativos Gerais": "Áreas de membros, plataformas de cursos (EAD), gestão interna e portais",
-    "Botões e Interruptores": "Destacar botões de compra, cadastro ou ações principais do site",
-    "Menus e Navegação": "Deixar o menu do topo ou barra lateral mais moderno e fácil de usar",
-    "Depoimentos e Avaliações": "Mostrar avaliações de clientes reais para gerar confiança na página",
-    "Tabelas de Preços": "Apresentar planos mensais/anuais de forma clara para vender mais",
-    "Login, Cadastro e Formulários": "Telas de entrada do sistema, cadastro de clientes e caixas de busca",
-    "Cartões, Galerias e Blocos": "Organizar fotos, recursos ou serviços em cartões bonitos e interativos",
+    "Tecnologia e Ferramentas": "Softwares, sistemas web, ferramentas digitais e serviços técnicos",
+    "Lançamentos e Lista VIP": "Lançamento de cursos, infoprodutos, eventos, aplicativos e listas de espera",
   };
   return map[classification.subcategory] || `Projetos de ${classification.subcategory.toLowerCase()} e páginas modernas`;
+}
+
+// Monta um prompt completo em texto corrido a partir do prompt estruturado,
+// para que "Prompt Completo" e o Personalizador Mágico funcionem também
+// para os itens estruturados (que não têm prompt bruto).
+function buildCompletePrompt(s) {
+  const parts = [];
+  if (s.summary) parts.push(`## Resumo\n${s.summary}`);
+  if (s.style?.prompt) parts.push(`## Estilo Visual\n${s.style.prompt}`);
+  const layoutPrompts = s.layout_and_structure?.prompts || [];
+  if (layoutPrompts.length) {
+    parts.push("## Layout e Estrutura");
+    for (const p of layoutPrompts) parts.push(`### ${p.part}\n${p.prompt}`);
+  }
+  const components = s.special_ui_components || [];
+  if (components.length) {
+    parts.push("## Componentes Especiais de UI");
+    for (const c of components) {
+      parts.push(`### ${c.component}${c.description ? ` — ${c.description}` : ""}\n${c.prompt}`);
+    }
+  }
+  if (s.special_notes) parts.push(`## Notas Especiais\n${s.special_notes}`);
+  return parts.join("\n\n");
+}
+
+// Aceita apenas URLs http(s) com hostname válido (bloqueia IP literal, localhost e lixo)
+function safePreviewUrl(url) {
+  if (!url || typeof url !== "string") return null;
+  try {
+    const u = new URL(url);
+    if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+    if (/^\d{1,3}(\.\d{1,3}){3}$/.test(u.hostname)) return null;
+    if (u.hostname === "localhost" || u.hostname.endsWith(".local")) return null;
+    if (!u.hostname.includes(".")) return null;
+    return url;
+  } catch {
+    return null;
+  }
 }
 
 console.log("Reading raw prompts...");
@@ -767,7 +840,7 @@ for (let i = 0; i < rawPrompts.length; i++) {
     themeLabelPt: classification.themeLabelPt,
     tags: (item.tags || []).slice(0, 10),
     tagsPt: uniqueTagsPt,
-    previewUrl: item.previewUrl || "",
+    previewUrl: safePreviewUrl(item.previewUrl) || "",
     thumbnailUrl: thumbUrl,
     thumbnailType: thumbType,
     previewDevice: item.previewDevice || "desktop",
@@ -780,11 +853,13 @@ for (let i = 0; i < rawPrompts.length; i++) {
     sectionNamesPt,
     stats: {
       views: (item.stats?.previewViewCount || 0) + (item.stats?.detailViewCount || 0),
+      uses: (item.stats?.copyCount || item.copyCount || 0) + (item.stats?.remixCount || (item.copyCount || 0) + (item.tryCount || 0)),
       copies: item.stats?.copyCount || item.copyCount || 0,
       remixes: item.stats?.remixCount || (item.copyCount || 0) + (item.tryCount || 0),
     },
     creatorName: item.creator?.name || "Superdesign",
     createdAt: item.createdAt,
+    source: "superdesign",
     chunkIndex,
   });
 
@@ -792,7 +867,7 @@ for (let i = 0; i < rawPrompts.length; i++) {
     id: item.id,
     slug: item.slug || item.id,
     fullDescription: rawDesc,
-    prompt: structured ? null : item.prompt,
+    prompt: structured ? buildCompletePrompt(structured) : item.prompt,
     structured: structured
       ? {
           summary: structured.summary,
@@ -813,6 +888,157 @@ for (let i = 0; i < rawPrompts.length; i++) {
   };
 }
 
+// --- Itens da comunidade (fontes abertas, mesclados ao catálogo) ---
+
+// 1. Prompts curados do repositório oficial superdesign-prompts (conteúdo CC0)
+try {
+  const community = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "raw", "community-prompts.json"), "utf8")
+  );
+  let added = 0;
+  for (const p of community) {
+    if (!p?.slug || !p?.prompt) continue;
+    const id = `sdgh-${p.slug}`;
+    if (catalogIndex.some((i) => i.id === id)) continue;
+    const mapped = p.mapping || { category: "sites-vendas", subcategory: "Geral" };
+    const cls = classifyItem({
+      title: p.title,
+      description: p.description || "",
+      tags: p.tags || [],
+      previewDevice: "desktop",
+    });
+    const classification = {
+      category: mapped.category,
+      categoryLabelPt: CATEGORIES_META[mapped.category].labelPt,
+      subcategory: mapped.subcategory,
+      themeLabelPt: cls.themeLabelPt,
+    };
+    const rawDesc = (p.description || "").length > 220 ? p.description.slice(0, 217) + "..." : p.description || "";
+    const summaryPt = buildFriendlyPtSummary({ previewUrl: null }, classification, null);
+    const idealForPt = buildIdealForPt(classification);
+    const chunkIndex = Math.floor(catalogIndex.length / CHUNK_SIZE);
+    if (!chunks[chunkIndex]) chunks[chunkIndex] = {};
+
+    catalogIndex.push({
+      id,
+      slug: p.slug,
+      title: p.title,
+      titlePt: translateTitleToPt(p.title),
+      description: rawDesc,
+      summaryPt,
+      idealForPt,
+      category: classification.category,
+      categoryLabelPt: classification.categoryLabelPt,
+      subcategory: classification.subcategory,
+      theme: cls.theme,
+      themeLabelPt: cls.themeLabelPt,
+      tags: (p.tags || []).slice(0, 10),
+      tagsPt: Array.from(new Set((p.tags || []).slice(0, 8).map(translateTag))),
+      previewUrl: "",
+      thumbnailUrl: p.thumbnailUrl || "",
+      thumbnailType: "image",
+      previewDevice: "desktop",
+      isStructured: false,
+      hasStyle: false,
+      hasLayout: false,
+      hasComponents: false,
+      sectionCount: 0,
+      componentCount: 0,
+      sectionNamesPt: [],
+      stats: { views: 0, uses: (p.copyCount || 0) + (p.tryCount || 0), copies: p.copyCount || 0, remixes: p.tryCount || 0 },
+      creatorName: p.author || "Superdesign",
+      createdAt: new Date().toISOString(),
+      source: "superdesign-prompts",
+      sourceUrl: p.try_url || "",
+      chunkIndex,
+    });
+
+    chunks[chunkIndex][id] = {
+      id,
+      slug: p.slug,
+      fullDescription: p.description || "",
+      prompt: p.prompt,
+      structured: null,
+      images: [],
+    };
+    added++;
+  }
+  console.log(`Merged ${added} community prompts (superdesign-prompts, CC0).`);
+} catch (e) {
+  console.warn("community-prompts.json indisponível, seguindo sem ele:", e.message);
+}
+
+// 2. Componentes open source do registro Kibo UI (MIT)
+try {
+  const kibo = JSON.parse(fs.readFileSync(path.join(__dirname, "raw", "kibo-registry.json"), "utf8"));
+  let added = 0;
+  for (const item of kibo.items || []) {
+    if (!item?.name) continue;
+    const id = `kibo-${item.name}`;
+    if (catalogIndex.some((i) => i.id === id)) continue;
+    const nameHuman = item.name
+      .replace(/-/g, " ")
+      .replace(/\b(ai|ui)\b/gi, (m) => m.toUpperCase())
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+    const desc = item.description || `Componente ${nameHuman} do registro Kibo UI (shadcn/ui).`;
+    const code = (item.files || [])
+      .map((f) => f.content)
+      .filter(Boolean)
+      .join("\n\n")
+      .slice(0, 12000);
+    const prompt = `Crie um componente ${nameHuman} para um projeto React + Tailwind CSS com shadcn/ui (estilo "New York").\n\nAlternativa recomendada (registro open source, licença MIT): instale direto com o CLI shadcn:\n\nnpx shadcn add @kibo-ui/${item.name}\n\nReferência oficial: https://www.kibo-ui.com\n\nImplementação de referência (MIT — Kibo UI):\n\n${code}`;
+    const chunkIndex = Math.floor(catalogIndex.length / CHUNK_SIZE);
+    if (!chunks[chunkIndex]) chunks[chunkIndex] = {};
+
+    catalogIndex.push({
+      id,
+      slug: item.name,
+      title: `Kibo UI: ${nameHuman}`,
+      titlePt: `Componente ${nameHuman} (Kibo UI)`,
+      description: desc,
+      summaryPt: `Componente open source de ${nameHuman.toLowerCase()} para shadcn/ui, pronto para instalar com o CLI e personalizar no seu projeto.`,
+      idealForPt: buildIdealForPt({ subcategory: "Componentes Open Source (shadcn)" }),
+      category: "pecas-componentes",
+      categoryLabelPt: CATEGORIES_META["pecas-componentes"].labelPt,
+      subcategory: "Componentes Open Source (shadcn)",
+      theme: "claro",
+      themeLabelPt: "Modo Claro e Limpo",
+      tags: ["shadcn", "ui component", "open source", "react", "tailwind"],
+      tagsPt: ["shadcn/ui", "Peça / Componente", "Open Source", "React", "Tailwind CSS"],
+      previewUrl: "",
+      thumbnailUrl: "",
+      thumbnailType: "empty",
+      previewDevice: "desktop",
+      isStructured: false,
+      hasStyle: false,
+      hasLayout: false,
+      hasComponents: false,
+      sectionCount: 0,
+      componentCount: 0,
+      sectionNamesPt: [],
+      stats: { views: 0, uses: 0, copies: 0, remixes: 0 },
+      creatorName: "Kibo UI (Hayden Bleasel)",
+      createdAt: new Date().toISOString(),
+      source: "kibo-ui",
+      sourceUrl: `https://www.kibo-ui.com/component/${item.name}`,
+      chunkIndex,
+    });
+
+    chunks[chunkIndex][id] = {
+      id,
+      slug: item.name,
+      fullDescription: desc,
+      prompt,
+      structured: null,
+      images: [],
+    };
+    added++;
+  }
+  console.log(`Merged ${added} Kibo UI components (MIT).`);
+} catch (e) {
+  console.warn("kibo-registry.json indisponível, seguindo sem ele:", e.message);
+}
+
 // Write one file per prompt (loaded on demand)
 fs.rmSync(CHUNKS_DIR, { recursive: true, force: true });
 const PER_PROMPT_DIR = path.join(PUBLIC_DATA_DIR, "p");
@@ -827,6 +1053,20 @@ for (const chunk of chunks) {
 }
 console.log(`Wrote ${written} per-prompt files to public/data/p/`);
 
+// Categories meta com contagens e subcategorias calculadas (Sidebar e filtros dependem disso)
+const categoriesMeta = Object.values(CATEGORIES_META).map((meta) => {
+  const catItems = catalogIndex.filter((i) => i.category === meta.id);
+  const subMap = new Map();
+  for (const it of catItems) subMap.set(it.subcategory, (subMap.get(it.subcategory) || 0) + 1);
+  return {
+    ...meta,
+    count: catItems.length,
+    subcategories: [...subMap.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count),
+  };
+});
+
 // Write catalog-index.json
 const indexPath = path.join(PUBLIC_DATA_DIR, "catalog-index.json");
 fs.writeFileSync(
@@ -834,7 +1074,7 @@ fs.writeFileSync(
   JSON.stringify({
     generatedAt: new Date().toISOString(),
     totalPrompts: catalogIndex.length,
-    categories: Object.values(CATEGORIES_META),
+    categories: categoriesMeta,
     items: catalogIndex,
   }),
   "utf8"

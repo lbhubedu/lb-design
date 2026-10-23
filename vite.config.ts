@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 function previewProxyPlugin(): Plugin {
+  // Mesma allowlist de api/preview.ts — mantenha as duas em sincronia.
+  const ALLOWED_HOSTS = ['superdesign.dev', 'supabase.co'];
+  const isAllowedHost = (hostname: string) => {
+    const h = hostname.toLowerCase();
+    return ALLOWED_HOSTS.some((host) => h === host || h.endsWith(`.${host}`));
+  };
+
   return {
     name: 'preview-proxy',
     configureServer(server) {
@@ -15,7 +22,23 @@ function previewProxyPlugin(): Plugin {
             res.end('Missing url parameter');
             return;
           }
-          const targetUrl = decodeURIComponent(rawUrl);
+          let parsed: URL;
+          try {
+            parsed = new URL(decodeURIComponent(rawUrl));
+          } catch {
+            res.statusCode = 400;
+            res.end('Invalid url parameter');
+            return;
+          }
+          if (
+            (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') ||
+            !isAllowedHost(parsed.hostname)
+          ) {
+            res.statusCode = 403;
+            res.end('Forbidden hostname');
+            return;
+          }
+          const targetUrl = parsed.toString();
           const response = await fetch(targetUrl, {
             headers: {
               'User-Agent':

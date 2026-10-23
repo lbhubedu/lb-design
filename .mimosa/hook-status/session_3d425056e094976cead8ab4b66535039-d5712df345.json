@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-23T17:21:06.444Z",
+  "sessionId": "session_3d425056e094976cead8ab4b66535039",
+  "event": "PostToolUse",
+  "toolName": "Write",
+  "file": "/Users/felipeleone/.zcode/cli/memories/projects/rea-38d39836d20b4d28/memory/lb-design-superdesign-audit.md",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 2,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

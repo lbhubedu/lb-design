@@ -12,6 +12,7 @@ import {
   FileCode,
   Heart,
   Maximize2,
+  ExternalLink,
 } from 'lucide-react';
 import { PromptItem, PromptDetail, AiTarget } from '../types/catalog';
 import { fetchPromptDetail, personalizePrompt } from '../services/api';
@@ -34,15 +35,14 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   onToggleFavorite,
   onCopySuccess,
 }) => {
-  if (!item) return null;
-
+  // Hooks SEMPRE rodando na mesma ordem — o early return fica depois deles.
   const [detail, setDetail] = useState<PromptDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<ActiveViewTab>('personalize');
   const [previewMode, setPreviewMode] = useState<'interactive' | 'screenshot'>('interactive');
   const [iframeLoading, setIframeLoading] = useState(true);
   const [frameSize, setFrameSize] = useState<FrameSize>(
-    item.previewDevice === 'mobile' ? 'mobile' : 'desktop'
+    item?.previewDevice === 'mobile' ? 'mobile' : 'desktop'
   );
 
   // Personalization state
@@ -56,8 +56,10 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   const [copiedSection, setCopiedSection] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!item) return;
     let mounted = true;
     setLoading(true);
+    setDetail(null);
     fetchPromptDetail(item.id)
       .then((data) => {
         if (mounted) {
@@ -73,7 +75,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
     return () => {
       mounted = false;
     };
-  }, [item.id]);
+  }, [item?.id]);
 
   // Handle ESC key
   useEffect(() => {
@@ -83,6 +85,8 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  if (!item) return null;
 
   const customizedPromptText = detail
     ? personalizePrompt(item, detail, {
@@ -154,6 +158,20 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             >
               <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
             </button>
+
+            {/* Source link (fontes abertas) */}
+            {item.sourceUrl && (
+              <a
+                href={item.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-10 px-4 bg-[#27272A] border-2 border-[#3F3F46] text-xs font-bold uppercase tracking-wider text-[#FAFAFA] hover:bg-[#FAFAFA] hover:text-black transition rounded-none flex items-center gap-1.5"
+                title="Abrir a fonte original deste modelo"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">FONTE</span>
+              </a>
+            )}
 
             {/* External link */}
             {item.previewUrl && (
@@ -241,7 +259,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                       <Sparkles className="w-4 h-4" />
                       COMO FUNCIONA:
                     </div>
-                    DIGITE O NOME E O RAMO DA SUA EMPRESA. ADAPTAMOS AUTOMATICAMENTE EM PORTUGUÊS PARA O LOVABLE, BOLT, V0 OU CHATGPT.
+                    DIGITE O NOME E O RAMO DA SUA EMPRESA. ADAPTAMOS AUTOMATICAMENTE EM PORTUGUÊS PARA O ARENA.AI, CODEX DESKTOP, ANTIGRAVITY OU CHATGPT.
                   </div>
 
                   {/* Form fields */}
