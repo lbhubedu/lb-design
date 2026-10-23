@@ -60,7 +60,7 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
                 ESCOLHA O MODELO IDEAL PARA SUA IDEIA
               </h3>
               <p className="text-xs sm:text-sm text-[#A1A1AA] mt-2 leading-relaxed uppercase tracking-wide font-medium">
-                NAVEGUE PELAS 10 CATEGORIAS (PÁGINAS DE VENDAS, PAINÉIS, LOJAS, PORTFÓLIOS) OU USE O CAMPO DE BUSCA PARA ENCONTRAR O NICHO DA SUA EMPRESA (EX: ODONTOLOGIA, RESTAURANTE, BARBEARIA).
+                NAVEGUE PELAS 10 CATEGORIAS (PÁGINAS DE VENDAS, PAINÉIS, APPS, COMPONENTES) OU USE O CAMPO DE BUSCA PARA ENCONTRAR O NICHO DA SUA EMPRESA (EX: ODONTOLOGIA, RESTAURANTE, BARBEARIA).
               </p>
             </div>
           </div>

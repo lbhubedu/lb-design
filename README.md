@@ -66,8 +66,8 @@ O **LB Design** é uma biblioteca aberta de prompts de UI/UX e sistemas de desig
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/lbhubedu/superdesign-biblioteca-pt.git
-cd superdesign-biblioteca-pt
+git clone https://github.com/lbhubedu/lb-design.git
+cd lb-design
 
 # 2. Instale as dependências
 npm install

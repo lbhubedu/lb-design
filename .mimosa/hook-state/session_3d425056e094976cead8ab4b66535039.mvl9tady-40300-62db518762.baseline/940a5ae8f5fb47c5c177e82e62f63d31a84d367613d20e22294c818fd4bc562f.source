@@ -88,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <a
-              href="https://github.com/lbhubedu/superdesign-biblioteca-pt"
+              href="https://github.com/lbhubedu/lb-design"
               target="_blank"
               rel="noopener noreferrer"
               className="h-10 px-3 bg-transparent border-2 border-[#3F3F46] hover:border-[#DFE104] hover:text-[#DFE104] text-[#FAFAFA] transition rounded-none hidden lg:flex items-center justify-center"
