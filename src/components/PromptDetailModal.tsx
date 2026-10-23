@@ -17,6 +17,7 @@ import {
 import { PromptItem, PromptDetail, AiTarget, ColorPalette, ColorPaletteMode, PaletteColors } from '../types/catalog';
 import { fetchPromptDetail, personalizePrompt } from '../services/api';
 import { COLOR_PRESETS } from '../lib/palettes';
+import { PalettePreview } from './PalettePreview';
 
 interface PromptDetailModalProps {
   item: PromptItem | null;
@@ -72,6 +73,13 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
       : paletteMode === 'preset'
       ? { mode: 'preset', presetId }
       : { mode: 'custom', colors: customColors };
+
+  const activeColors: PaletteColors | null =
+    paletteMode === 'custom'
+      ? customColors
+      : paletteMode === 'preset'
+      ? COLOR_PRESETS.find((p) => p.id === presetId)?.colors ?? null
+      : null;
 
   useEffect(() => {
     if (!item) return;
@@ -420,10 +428,21 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                       </div>
                     )}
 
-                    {paletteMode !== 'original' && (
-                      <p className="mt-2 text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider">
-                        // AS CORES SERÃO INJETADAS COMO REGRAS OBRIGATÓRIAS NO PROMPT COPIADO.
-                      </p>
+                    {paletteMode !== 'original' && activeColors && (
+                      <>
+                        <PalettePreview
+                          colors={activeColors}
+                          labelPt={
+                            paletteMode === 'custom'
+                              ? 'Personalizado'
+                              : COLOR_PRESETS.find((p) => p.id === presetId)?.labelPt || ''
+                          }
+                          device={item.previewDevice}
+                        />
+                        <p className="mt-2 text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider">
+                          // AS CORES SERÃO INJETADAS COMO REGRAS OBRIGATÓRIAS NO PROMPT COPIADO.
+                        </p>
+                      </>
                     )}
                   </div>
 
