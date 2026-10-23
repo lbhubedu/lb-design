@@ -1,4 +1,5 @@
-import { CatalogIndex, DesignSystemsCatalog, PromptDetail, PromptItem } from '../types/catalog';
+import { CatalogIndex, DesignSystemsCatalog, PromptDetail, PromptItem, ColorPalette } from '../types/catalog';
+import { COLOR_PRESETS } from '../lib/palettes';
 
 let catalogIndexCache: CatalogIndex | null = null;
 let designSystemsCache: DesignSystemsCatalog | null = null;
@@ -95,6 +96,27 @@ export interface PersonalizeOptions {
   businessType: string;
   language: 'pt-BR' | 'en';
   aiTarget: 'arena' | 'codex' | 'antigravity' | 'chatgpt';
+  palette: ColorPalette;
+}
+
+// Bloco de cores injetado no prompt quando o usuário escolhe/Personaliza uma paleta.
+function buildPaletteBlock(palette: ColorPalette, isPt: boolean): string {
+  if (palette.mode === 'original') return '';
+
+  let colors = palette.colors;
+  let note = '';
+  if (palette.mode === 'preset' && palette.presetId) {
+    const preset = COLOR_PRESETS.find((p) => p.id === palette.presetId);
+    if (!preset) return '';
+    colors = preset.colors;
+    note = isPt ? preset.notePt : '';
+  }
+  if (!colors) return '';
+
+  if (isPt) {
+    return `\n\n[PALETA DE CORES OBRIGATÓRIA]\n- Cor de fundo: ${colors.background}\n- Cor do texto principal: ${colors.text}\n- Cor de destaque (CTAs, links e detalhes): ${colors.accent}\n- Bordas e elementos neutros: ${colors.neutral}\nDiretivas: use EXATAMENTE estas cores em TODA a interface. ${note} Garanta contraste legível (mínimo AA). Não introduza cores fora desta paleta (exceto variações de estado como hover/active/disabled). Mantenha consistência visual em todas as seções.`;
+  }
+  return `\n\n[REQUIRED COLOR PALETTE]\n- Background: ${colors.background}\n- Primary text: ${colors.text}\n- Accent (CTAs, links, highlights): ${colors.accent}\n- Borders & neutral elements: ${colors.neutral}\nDirectives: use EXACTLY these colors across the entire interface. Ensure readable contrast (minimum AA). Do not introduce colors outside this palette (except state variations like hover/active/disabled). Keep visual consistency across all sections.`;
 }
 
 export function personalizePrompt(
@@ -102,7 +124,7 @@ export function personalizePrompt(
   detail: PromptDetail,
   options: PersonalizeOptions
 ): string {
-  const { businessName, businessType, language, aiTarget } = options;
+  const { businessName, businessType, language, aiTarget, palette } = options;
   const isPt = language === 'pt-BR';
 
   const basePrompt = detail.prompt || '';
@@ -158,7 +180,8 @@ export function personalizePrompt(
   }
 
   // Combine
-  let result = `${targetPrefix}${businessContext}\n${basePrompt}${targetInstructions}`;
+  const paletteBlock = buildPaletteBlock(palette, isPt);
+  let result = `${targetPrefix}${businessContext}${paletteBlock}\n${basePrompt}${targetInstructions}`;
 
   return result.trim();
 }

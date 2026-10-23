@@ -75,7 +75,7 @@ export const HowToModal: React.FC<HowToModalProps> = ({ isOpen, onClose }) => {
                 PERSONALIZE O PROMPT NO PERSONALIZADOR MÁGICO
               </h3>
               <p className="text-xs sm:text-sm text-[#A1A1AA] mt-2 leading-relaxed uppercase tracking-wide font-medium">
-                CLIQUE NO CARD PARA ABRIR O ESTÚDIO. NA ABA <strong className="text-[#DFE104]">PERSONALIZADOR MÁGICO</strong>, DIGITE O NOME DO SEU NEGÓCIO E O QUE ELE FAZ. O PROMPT É CONVERTIDO AUTOMATICAMENTE EM PORTUGUÊS COM SEU CONTEXTO REAL.
+                CLIQUE NO CARD PARA ABRIR O ESTÚDIO. NA ABA <strong className="text-[#DFE104]">PERSONALIZADOR MÁGICO</strong>, DIGITE O NOME DO SEU NEGÓCIO E O QUE ELE FAZ. O PROMPT É CONVERTIDO AUTOMATICAMENTE EM PORTUGUÊS COM SEU CONTEXTO REAL. VOCÊ TAMBÉM PODE ESCOLHER UMA <strong className="text-[#DFE104]">PALETA DE CORES</strong> PRONTA (OU PERSONALIZAR AS SUAS) PARA A IA SEGUIR À RISCA.
               </p>
             </div>
           </div>

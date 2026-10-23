@@ -14,8 +14,9 @@ import {
   Maximize2,
   ExternalLink,
 } from 'lucide-react';
-import { PromptItem, PromptDetail, AiTarget } from '../types/catalog';
+import { PromptItem, PromptDetail, AiTarget, ColorPalette, ColorPaletteMode, PaletteColors } from '../types/catalog';
 import { fetchPromptDetail, personalizePrompt } from '../services/api';
+import { COLOR_PRESETS } from '../lib/palettes';
 
 interface PromptDetailModalProps {
   item: PromptItem | null;
@@ -54,6 +55,23 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   const [copiedPersonalized, setCopiedPersonalized] = useState(false);
   const [copiedRaw, setCopiedRaw] = useState(false);
   const [copiedSection, setCopiedSection] = useState<string | null>(null);
+
+  // Paleta de cores aplicada ao prompt personalizado
+  const [paletteMode, setPaletteMode] = useState<ColorPaletteMode>('original');
+  const [presetId, setPresetId] = useState<string>(COLOR_PRESETS[0].id);
+  const [customColors, setCustomColors] = useState<PaletteColors>({
+    background: '#09090B',
+    text: '#FAFAFA',
+    accent: '#DFE104',
+    neutral: '#3F3F46',
+  });
+
+  const activePalette: ColorPalette =
+    paletteMode === 'original'
+      ? { mode: 'original' }
+      : paletteMode === 'preset'
+      ? { mode: 'preset', presetId }
+      : { mode: 'custom', colors: customColors };
 
   useEffect(() => {
     if (!item) return;
@@ -94,6 +112,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
         businessType,
         language,
         aiTarget,
+        palette: activePalette,
       })
     : '';
 
@@ -259,7 +278,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                       <Sparkles className="w-4 h-4" />
                       COMO FUNCIONA:
                     </div>
-                    DIGITE O NOME E O RAMO DA SUA EMPRESA. ADAPTAMOS AUTOMATICAMENTE EM PORTUGUÊS PARA O ARENA.AI, CODEX DESKTOP, ANTIGRAVITY OU CHATGPT.
+                    DIGITE O NOME E O RAMO DA SUA EMPRESA. ESCOLHA UMA PALETA DE CORES (OU PERSONALIZE AS SUAS). ADAPTAMOS TUDO AUTOMATICAMENTE EM PORTUGUÊS PARA O ARENA.AI, CODEX DESKTOP, ANTIGRAVITY OU CHATGPT.
                   </div>
 
                   {/* Form fields */}
@@ -305,6 +324,107 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
                         className="w-full px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-[#27272A] border-2 border-[#3F3F46] text-[#FAFAFA] placeholder:text-[#A1A1AA]/50 focus:border-[#DFE104] focus:outline-none rounded-none"
                       />
                     </div>
+                  </div>
+
+                  {/* Paleta de cores */}
+                  <div>
+                    <label className="block text-xs font-black uppercase tracking-wider text-[#FAFAFA] mb-2 font-mono">
+                      PALETA DE CORES (OPCIONAL)
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={() => setPaletteMode('original')}
+                        title="Manter as cores originais do modelo"
+                        className={`flex items-center gap-2 px-3 py-2 text-[11px] font-black uppercase tracking-wider border-2 rounded-none transition cursor-pointer ${
+                          paletteMode === 'original'
+                            ? 'bg-[#DFE104] text-black border-[#DFE104]'
+                            : 'bg-[#27272A] text-[#FAFAFA] border-[#3F3F46] hover:border-[#DFE104]'
+                        }`}
+                      >
+                        <span>ORIGINAL</span>
+                      </button>
+
+                      {COLOR_PRESETS.map((p) => {
+                        const isSelected = paletteMode === 'preset' && presetId === p.id;
+                        return (
+                          <button
+                            key={p.id}
+                            onClick={() => {
+                              setPaletteMode('preset');
+                              setPresetId(p.id);
+                            }}
+                            title={p.notePt}
+                            className={`flex items-center gap-2 px-3 py-2 text-[11px] font-black uppercase tracking-wider border-2 rounded-none transition cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#DFE104] text-black border-[#DFE104]'
+                                : 'bg-[#27272A] text-[#FAFAFA] border-[#3F3F46] hover:border-[#DFE104]'
+                            }`}
+                          >
+                            <span className="flex gap-0.5">
+                              {[
+                                p.colors.background,
+                                p.colors.text,
+                                p.colors.accent,
+                                p.colors.neutral,
+                              ].map((c, i) => (
+                                <span
+                                  key={i}
+                                  className="w-3 h-3 border border-black/40"
+                                  style={{ backgroundColor: c }}
+                                />
+                              ))}
+                            </span>
+                            <span>{p.labelPt}</span>
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={() => setPaletteMode('custom')}
+                        title="Escolher suas próprias cores"
+                        className={`flex items-center gap-2 px-3 py-2 text-[11px] font-black uppercase tracking-wider border-2 rounded-none transition cursor-pointer ${
+                          paletteMode === 'custom'
+                            ? 'bg-[#DFE104] text-black border-[#DFE104]'
+                            : 'bg-[#27272A] text-[#FAFAFA] border-[#3F3F46] hover:border-[#DFE104]'
+                        }`}
+                      >
+                        <span>🎨 PERSONALIZAR</span>
+                      </button>
+                    </div>
+
+                    {paletteMode === 'custom' && (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3 bg-[#18181B] border-2 border-[#3F3F46] p-4">
+                        {(
+                          [
+                            ['background', 'Fundo'],
+                            ['text', 'Texto'],
+                            ['accent', 'Destaque (CTA)'],
+                            ['neutral', 'Bordas/Neutro'],
+                          ] as const
+                        ).map(([key, label]) => (
+                          <div key={key} className="flex flex-col gap-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#A1A1AA]">
+                              {label}
+                            </span>
+                            <input
+                              type="color"
+                              value={customColors[key]}
+                              onChange={(e) =>
+                                setCustomColors((c) => ({ ...c, [key]: e.target.value }))
+                              }
+                              aria-label={label}
+                              className="w-full h-9 border-2 border-[#3F3F46] bg-transparent cursor-pointer rounded-none p-0.5"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {paletteMode !== 'original' && (
+                      <p className="mt-2 text-[10px] font-mono text-[#A1A1AA] uppercase tracking-wider">
+                        // AS CORES SERÃO INJETADAS COMO REGRAS OBRIGATÓRIAS NO PROMPT COPIADO.
+                      </p>
+                    )}
                   </div>
 
                   {/* Generated Prompt Box */}

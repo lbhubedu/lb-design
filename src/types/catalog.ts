@@ -109,3 +109,18 @@ export interface DesignSystemsCatalog {
 export type ViewMode = 'grid' | 'compact' | 'studio';
 export type ActiveTab = 'prompts' | 'design-systems' | 'favorites';
 export type AiTarget = 'arena' | 'codex' | 'antigravity' | 'chatgpt';
+
+export interface PaletteColors {
+  background: string;
+  text: string;
+  accent: string;
+  neutral: string;
+}
+
+export type ColorPaletteMode = 'original' | 'preset' | 'custom';
+
+export interface ColorPalette {
+  mode: ColorPaletteMode;
+  presetId?: string;
+  colors?: PaletteColors;
+}
