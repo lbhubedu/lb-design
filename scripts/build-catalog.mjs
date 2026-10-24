@@ -792,6 +792,14 @@ function safePreviewUrl(url) {
   }
 }
 
+// "magic-card" -> "Magic Card", "ai-chat" -> "AI Chat"
+function humanizeName(name) {
+  return String(name || "")
+    .replace(/-/g, " ")
+    .replace(/\b(ai|ui)\b/gi, (m) => m.toUpperCase())
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 console.log("Reading raw prompts...");
 const rawPrompts = JSON.parse(fs.readFileSync(RAW_PROMPTS_PATH, "utf8"));
 console.log(`Loaded ${rawPrompts.length} prompts.`);
@@ -1039,6 +1047,163 @@ try {
   console.warn("kibo-registry.json indisponível, seguindo sem ele:", e.message);
 }
 
+// 3. Componentes animados do registro Magic UI (MIT)
+try {
+  const magicui = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "raw", "magicui-registry.json"), "utf8")
+  );
+  let added = 0;
+  const EFFECT_BG = /(background|pattern|grid|dots|particles|meteors|aurora|beam|ripple|orb|waves|snow|flicker|glow|blur|fade|border-beam)/;
+  const EFFECT_TEXT = /(text|typewriter|number-ticker|word-rotate|letter|flip|encrypt|count)/;
+  for (const item of magicui.items || []) {
+    if (!item?.name || item.type === "registry:style") continue;
+    const id = `mgc-${item.name}`;
+    if (catalogIndex.some((i) => i.id === id)) continue;
+    const nameHuman = humanizeName(item.name);
+    const desc = item.description || `Componente animado ${nameHuman} do Magic UI.`;
+    const code = (item.files || [])
+      .map((f) => f.content)
+      .filter(Boolean)
+      .join("\n\n")
+      .slice(0, 12000);
+    let category = "pecas-componentes";
+    let subcategory = "Componentes Open Source (shadcn)";
+    if (EFFECT_BG.test(item.name)) {
+      category = "efeitos-animacoes";
+      subcategory = "Fundos Animados & Shaders 3D";
+    } else if (EFFECT_TEXT.test(item.name)) {
+      category = "efeitos-animacoes";
+      subcategory = "Textos com Efeito & Tipografia";
+    }
+    const prompt = `Crie um componente ${nameHuman} para um projeto React + Tailwind CSS com shadcn/ui.\n\nDescrição original: ${desc}\n\nAlternativa recomendada (registro open source, licença MIT): instale direto com o CLI shadcn:\n\nnpx shadcn add "https://magicui.design/r/${item.name}.json"\n\nReferência oficial: https://magicui.design\n\nImplementação de referência (MIT — Magic UI):\n\n${code}`;
+    const chunkIndex = Math.floor(catalogIndex.length / CHUNK_SIZE);
+    if (!chunks[chunkIndex]) chunks[chunkIndex] = {};
+    const cls = classifyItem({
+      title: item.name,
+      description: desc,
+      tags: ["shadcn", "open source"],
+      previewDevice: "desktop",
+    });
+
+    catalogIndex.push({
+      id,
+      slug: item.name,
+      title: `Magic UI: ${nameHuman}`,
+      titlePt: `Componente ${nameHuman} (Magic UI)`,
+      description: desc.slice(0, 220),
+      summaryPt: `Componente open source animado de ${nameHuman.toLowerCase()} do registro Magic UI, pronto para instalar com o CLI e personalizar no seu projeto.`,
+      idealForPt: buildIdealForPt({ subcategory }),
+      category,
+      categoryLabelPt: CATEGORIES_META[category].labelPt,
+      subcategory,
+      theme: cls.theme,
+      themeLabelPt: cls.themeLabelPt,
+      tags: ["shadcn", "ui component", "open source", "react", "tailwind", "animation"],
+      tagsPt: ["shadcn/ui", "Peça / Componente", "Open Source", "React", "Tailwind CSS", "Com Animação"],
+      previewUrl: "",
+      thumbnailUrl: "",
+      thumbnailType: "empty",
+      previewDevice: "desktop",
+      isStructured: false,
+      hasStyle: false,
+      hasLayout: false,
+      hasComponents: false,
+      sectionCount: 0,
+      componentCount: 0,
+      sectionNamesPt: [],
+      stats: { views: 0, uses: 0, copies: 0, remixes: 0 },
+      creatorName: "Magic UI",
+      createdAt: new Date().toISOString(),
+      source: "magic-ui",
+      sourceUrl: `https://magicui.design/r/${item.name}`,
+      chunkIndex,
+    });
+
+    chunks[chunkIndex][id] = {
+      id,
+      slug: item.name,
+      fullDescription: desc,
+      prompt,
+      structured: null,
+      images: [],
+    };
+    added++;
+  }
+  console.log(`Merged ${added} Magic UI components (MIT).`);
+} catch (e) {
+  console.warn("magicui-registry.json indisponível, seguindo sem ele:", e.message);
+}
+
+// 4. Componentes base do registro oficial shadcn/ui (MIT)
+try {
+  const shadcn = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "raw", "shadcn-registry.json"), "utf8")
+  );
+  let added = 0;
+  for (const item of shadcn.items || []) {
+    if (!item?.name) continue;
+    const id = `shdcn-${item.name}`;
+    if (catalogIndex.some((i) => i.id === id)) continue;
+    const nameHuman = humanizeName(item.name);
+    const docsUrl = item.meta?.links?.docs || `https://ui.shadcn.com/docs/components/${item.name}`;
+    const code = (item.files || [])
+      .map((f) => f.content)
+      .filter(Boolean)
+      .join("\n\n")
+      .slice(0, 12000);
+    const prompt = `Crie um componente ${nameHuman} para um projeto React + Tailwind CSS com shadcn/ui (estilo "New York", acessível via Radix UI).\n\nAlternativa recomendada (registro oficial open source, licença MIT): instale direto com o CLI shadcn:\n\nnpx shadcn add ${item.name}\n\nDocumentação oficial: ${docsUrl}\n\nImplementação de referência (MIT — shadcn/ui):\n\n${code}`;
+    const chunkIndex = Math.floor(catalogIndex.length / CHUNK_SIZE);
+    if (!chunks[chunkIndex]) chunks[chunkIndex] = {};
+
+    catalogIndex.push({
+      id,
+      slug: item.name,
+      title: `shadcn/ui: ${nameHuman}`,
+      titlePt: `Componente ${nameHuman} (shadcn/ui)`,
+      description: `Componente ${nameHuman} do registro oficial shadcn/ui, acessível e pronto para o CLI.`,
+      summaryPt: `Componente oficial de ${nameHuman.toLowerCase()} do shadcn/ui, acessível e instalável com um comando no seu projeto React + Tailwind.`,
+      idealForPt: buildIdealForPt({ subcategory: "Componentes Open Source (shadcn)" }),
+      category: "pecas-componentes",
+      categoryLabelPt: CATEGORIES_META["pecas-componentes"].labelPt,
+      subcategory: "Componentes Open Source (shadcn)",
+      theme: "claro",
+      themeLabelPt: "Modo Claro e Limpo",
+      tags: ["shadcn", "ui component", "open source", "react", "tailwind"],
+      tagsPt: ["shadcn/ui", "Peça / Componente", "Open Source", "React", "Tailwind CSS"],
+      previewUrl: "",
+      thumbnailUrl: "",
+      thumbnailType: "empty",
+      previewDevice: "desktop",
+      isStructured: false,
+      hasStyle: false,
+      hasLayout: false,
+      hasComponents: false,
+      sectionCount: 0,
+      componentCount: 0,
+      sectionNamesPt: [],
+      stats: { views: 0, uses: 0, copies: 0, remixes: 0 },
+      creatorName: "shadcn (shadcn/ui)",
+      createdAt: new Date().toISOString(),
+      source: "shadcn",
+      sourceUrl: docsUrl,
+      chunkIndex,
+    });
+
+    chunks[chunkIndex][id] = {
+      id,
+      slug: item.name,
+      fullDescription: `Componente ${nameHuman} do registro oficial shadcn/ui.`,
+      prompt,
+      structured: null,
+      images: [],
+    };
+    added++;
+  }
+  console.log(`Merged ${added} shadcn/ui components (MIT).`);
+} catch (e) {
+  console.warn("shadcn-registry.json indisponível, seguindo sem ele:", e.message);
+}
+
 // Write one file per prompt (loaded on demand)
 fs.rmSync(CHUNKS_DIR, { recursive: true, force: true });
 const PER_PROMPT_DIR = path.join(PUBLIC_DATA_DIR, "p");
@@ -1103,6 +1268,52 @@ const designSystems = rawDesignMd.map((d) => ({
   creatorName: d.creator?.name || "Comunidade",
   createdAt: d.createdAt,
 }));
+
+// Temas da comunidade tweakcn (MIT) — entram na aba Sistemas de Design com cores e tipografia
+try {
+  const tweakcn = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "raw", "tweakcn-registry.json"), "utf8")
+  );
+  let added = 0;
+  for (const d of tweakcn.items || []) {
+    if (!d?.name) continue;
+    if (designSystems.some((s) => s.id === `twk-${d.name}`)) continue;
+    const themeVars = d.cssVars?.theme || {};
+    const lightVars = d.cssVars?.light || {};
+    const colors = {};
+    for (const [k, v] of Object.entries(lightVars)) {
+      if (typeof v === "string") colors[k] = v;
+    }
+    designSystems.push({
+      id: `twk-${d.name}`,
+      slug: d.name,
+      name: d.title || d.name,
+      namePt: d.title || d.name,
+      description: d.description || `Tema de cores para shadcn/ui do registro tweakcn (inclui variação dark).`,
+      mode: "light",
+      modeLabelPt: "Modo Claro (Light) + Dark incluso",
+      colors,
+      typography: {
+        fontFamilySans: typeof themeVars["font-sans"] === "string" ? themeVars["font-sans"] : undefined,
+        fontFamilySerif: typeof themeVars["font-serif"] === "string" ? themeVars["font-serif"] : undefined,
+        fontFamilyMono: typeof themeVars["font-mono"] === "string" ? themeVars["font-mono"] : undefined,
+      },
+      rounded: typeof themeVars.radius === "string" ? themeVars.radius : null,
+      spacing: null,
+      sourceDomain: "tweakcn.com",
+      sourceUrl: `https://tweakcn.com/editor/theme/${d.name}`,
+      tokenPreviewUrl: "",
+      designMdUrl: "",
+      thumbnailUrl: "",
+      creatorName: "tweakcn (comunidade)",
+      createdAt: new Date().toISOString(),
+    });
+    added++;
+  }
+  console.log(`Merged ${added} tweakcn themes (MIT).`);
+} catch (e) {
+  console.warn("tweakcn-registry.json indisponível, seguindo sem ele:", e.message);
+}
 
 const designSystemsPath = path.join(PUBLIC_DATA_DIR, "design-systems.json");
 fs.writeFileSync(

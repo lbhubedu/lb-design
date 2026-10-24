@@ -9,8 +9,12 @@
 
 O **LB Design** é uma biblioteca aberta de prompts de UI/UX e sistemas de design em português. Ele nasce do catálogo público do [Superdesign.dev](https://superdesign.dev/library) — enriquecido com fontes abertas curadas — e remove travas de cópia, limites de visualização e o jargão técnico em inglês.
 
-- **1.317 Prompts Completos de UI/UX** organizados em 10 categorias, incluindo 140 prompts curados do repositório oficial [superdesign-prompts](https://github.com/superdesigndev/superdesign-prompts) (conteúdo CC0) e 41 componentes open source do registro [Kibo UI](https://www.kibo-ui.com) (MIT).
-- **148 Sistemas de Design (`design.md`)** com paletas de cores interativas (clique para copiar HEX) e regras de tipografia.
+- **1.627 Prompts Completos de UI/UX** organizados em 10 categorias, alimentados por fontes abertas curadas:
+  - [superdesign-prompts](https://github.com/superdesigndev/superdesign-prompts) — 140 prompts mais usados do Superdesign (conteúdo **CC0**);
+  - [Kibo UI](https://www.kibo-ui.com) — 41 componentes avançados (**MIT**);
+  - [Magic UI](https://magicui.design) — 249 componentes animados e efeitos (**MIT**);
+  - [shadcn/ui](https://ui.shadcn.com) — 61 componentes oficiais do registro base (**MIT**).
+- **184 Sistemas de Design (`design.md`)** com paletas de cores interativas (clique para copiar HEX) e regras de tipografia — incluindo 36 temas da comunidade [tweakcn](https://tweakcn.com) (**MIT**).
 - **✨ Personalizador Mágico**: digite o nome do seu negócio e o nicho (ex: "Clínica Vida, Odontologia"), e o prompt é transformado instantaneamente em português pronto para ser usado.
 - **Pré-visualização Interativa**: teste o site em tempo real nos modos Computador (Desktop), Tablet e Celular (Mobile).
 - **Formatado para as melhores IAs**:
@@ -33,11 +37,11 @@ O **LB Design** é uma biblioteca aberta de prompts de UI/UX e sistemas de desig
 | 🪄 | **Ferramentas de IA & Agentes** | Chatbots, agentes, geradores de imagem/vídeo e skills para IA | 89 |
 | 💼 | **Sistemas Web & Plataformas SaaS** | Plataformas web completas, áreas de membros e portais | 7 |
 | 🔥 | **Páginas de Vendas & Landing Pages** | Landing pages de alta conversão, lançamentos, lojas e portfólios | 292 |
-| 🧱 | **Componentes & Peças de UI** | Menus, botões, tabelas de preço, formulários e blocos open source | 224 |
+| 🧱 | **Componentes & Peças de UI** | Menus, botões, tabelas de preço, formulários e blocos open source | 420 |
 | 🎨 | **Estilos Visuais & Design Systems** | Dark Mode, Neumorphism, Efeito Vidro, Luxo e Minimalismo | 418 |
-| ⚡ | **Efeitos Visuais & Animações 3D** | Fundos com shaders, simulações 3D e cursores interativos | 80 |
+| ⚡ | **Efeitos Visuais & Animações 3D** | Fundos com shaders, simulações 3D e cursores interativos | 194 |
 | 📑 | **Apresentações & Pitch Decks** | Slides e decks para investidores e vendas | 12 |
-| 📐 | **Sistemas de Cores (`design.md`)** | Paletas hexadecimais prontas, tipografia e tokens de design | 148 |
+| 📐 | **Sistemas de Cores (`design.md`)** | Paletas hexadecimais prontas, tipografia e tokens de design | 184 |
 
 > As contagens acima são calculadas automaticamente pelo `scripts/build-catalog.mjs`.
 
@@ -77,7 +81,7 @@ npm run dev
 
 # 4. Atualize os dados do catálogo (opcional)
 node scripts/fetch-data.mjs        # catálogo público do Superdesign
-node scripts/fetch-community.mjs   # fontes abertas (superdesign-prompts + Kibo UI)
+node scripts/fetch-community.mjs   # fontes abertas (superdesign-prompts, Kibo UI, Magic UI, shadcn/ui, tweakcn)
 node scripts/build-catalog.mjs     # regenera public/data/
 
 # 5. Gere o build de produção

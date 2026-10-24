@@ -72,3 +72,38 @@ if (!kiboRes.ok) throw new Error(`kibo registry HTTP ${kiboRes.status}`);
 const kibo = await kiboRes.json();
 fs.writeFileSync(path.join(RAW_DIR, "kibo-registry.json"), JSON.stringify(kibo));
 console.log(`kibo-registry.json: ${kibo.items?.length ?? 0} componentes`);
+
+// --- 3. Magic UI (MIT) — componentes animados de efeito ---
+const magicuiRes = await fetch("https://magicui.design/r/registry.json");
+if (!magicuiRes.ok) throw new Error(`magicui registry HTTP ${magicuiRes.status}`);
+const magicui = await magicuiRes.json();
+fs.writeFileSync(path.join(RAW_DIR, "magicui-registry.json"), JSON.stringify(magicui));
+console.log(
+  `magicui-registry.json: ${magicui.items?.filter((i) => i.type !== "registry:style").length ?? 0} componentes`
+);
+
+// --- 4. shadcn/ui oficial (MIT) — componentes base do registro padrão ---
+const shadcnIndex = await (await fetch("https://ui.shadcn.com/r/index.json")).json();
+const shadcnItems = [];
+for (const item of shadcnIndex) {
+  try {
+    const res = await fetch(`https://ui.shadcn.com/r/styles/new-york-v4/${item.name}.json`);
+    if (!res.ok) continue;
+    const full = await res.json();
+    shadcnItems.push({ ...full, name: item.name, meta: item.meta });
+  } catch {
+    // segue sem o item individual
+  }
+}
+fs.writeFileSync(
+  path.join(RAW_DIR, "shadcn-registry.json"),
+  JSON.stringify({ items: shadcnItems })
+);
+console.log(`shadcn-registry.json: ${shadcnItems.length} componentes (com código)`);
+
+// --- 5. tweakcn (MIT) — temas de design system com cssVars ---
+const tweakcnRes = await fetch("https://tweakcn.com/r/registry.json");
+if (!tweakcnRes.ok) throw new Error(`tweakcn registry HTTP ${tweakcnRes.status}`);
+const tweakcn = await tweakcnRes.json();
+fs.writeFileSync(path.join(RAW_DIR, "tweakcn-registry.json"), JSON.stringify(tweakcn));
+console.log(`tweakcn-registry.json: ${tweakcn.items?.length ?? 0} temas`);
