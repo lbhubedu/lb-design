@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Sparkles, Heart, HelpCircle, Layers, Palette, X } from 'lucide-react';
+import { Search, Sparkles, Heart, HelpCircle, Layers, Palette, X, Sun, Moon } from 'lucide-react';
 import { ActiveTab } from '../types/catalog';
 
 interface HeaderProps {
@@ -10,6 +10,8 @@ interface HeaderProps {
   totalPrompts: number;
   totalDesignSystems: number;
   favoriteCount: number;
+  lightTheme: boolean;
+  onToggleTheme: () => void;
   onOpenHowTo: () => void;
 }
 
@@ -21,6 +23,8 @@ export const Header: React.FC<HeaderProps> = ({
   totalPrompts,
   totalDesignSystems,
   favoriteCount,
+  lightTheme,
+  onToggleTheme,
   onOpenHowTo,
 }) => {
   return (
@@ -78,6 +82,15 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={onToggleTheme}
+              className="h-10 w-10 bg-transparent border-2 border-[#3F3F46] hover:border-[#DFE104] hover:text-[#DFE104] text-xs font-bold uppercase tracking-wider text-[#FAFAFA] transition rounded-none flex items-center justify-center cursor-pointer"
+              title={lightTheme ? 'Mudar para versão escura' : 'Mudar para versão light (fundo cinza claro)'}
+              aria-label={lightTheme ? 'Ativar versão escura' : 'Ativar versão light'}
+            >
+              {lightTheme ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            </button>
+
             <button
               onClick={onOpenHowTo}
               className="h-10 px-4 bg-transparent border-2 border-[#3F3F46] hover:bg-[#FAFAFA] hover:text-[#000000] text-xs font-bold uppercase tracking-wider text-[#FAFAFA] transition rounded-none flex items-center gap-1.5 cursor-pointer"

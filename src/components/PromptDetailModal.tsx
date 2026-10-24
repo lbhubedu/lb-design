@@ -151,9 +151,9 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 lg:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4 lg:p-6 animate-in fade-in duration-200">
       <div
-        className="bg-[#09090B] w-full max-w-7xl h-[94vh] border-2 border-[#3F3F46] flex flex-col overflow-hidden rounded-none shadow-none"
+        className="bg-[#09090B] w-full max-w-7xl h-[100dvh] sm:h-[94vh] border-0 sm:border-2 sm:border-[#3F3F46] flex flex-col overflow-hidden rounded-none shadow-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Modal Navigation Header */}
@@ -226,9 +226,9 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
         </div>
 
         {/* Modal Main Body (Split into Left: Customizer & Right: Live Frame) */}
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
           {/* Left Column: Personalizer & Prompts */}
-          <div className="w-full lg:w-1/2 flex flex-col border-b lg:border-b-0 lg:border-r-2 border-[#3F3F46] bg-[#09090B] overflow-hidden">
+          <div className="w-full lg:w-1/2 flex flex-col border-b lg:border-b-0 lg:border-r-2 border-[#3F3F46] bg-[#09090B] lg:overflow-hidden">
             {/* View Tabs */}
             <div className="flex items-center border-b-2 border-[#3F3F46] px-6 pt-3 gap-2 shrink-0 bg-[#09090B]">
               <button
@@ -271,7 +271,7 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             </div>
 
             {/* Tab Contents */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="p-6 space-y-6 lg:flex-1 lg:overflow-y-auto">
               {loading ? (
                 <div className="space-y-4 py-12">
                   <div className="h-6 bg-[#27272A] animate-pulse" />
@@ -602,8 +602,32 @@ export const PromptDetailModal: React.FC<PromptDetailModalProps> = ({
             </div>
           </div>
 
+          {/* Barra de cópia fixa no mobile */}
+          <div className="lg:hidden sticky bottom-0 border-t-2 border-[#3F3F46] bg-[#09090B] p-3">
+            <button
+              onClick={handleCopyPersonalized}
+              className={`h-12 w-full text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 rounded-none cursor-pointer ${
+                copiedPersonalized
+                  ? 'bg-emerald-500 text-black'
+                  : 'bg-[#DFE104] text-black hover:scale-[1.01] active:scale-95'
+              }`}
+            >
+              {copiedPersonalized ? (
+                <>
+                  <Check className="w-4 h-4 stroke-[3]" />
+                  <span>COPIADO COM SUCESSO!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4" />
+                  <span>COPIAR PROMPT PERSONALIZADO</span>
+                </>
+              )}
+            </button>
+          </div>
+
           {/* Right Column: Visual Preview Panel */}
-          <div className="w-full lg:w-1/2 flex flex-col bg-[#000000] overflow-hidden">
+          <div className="w-full lg:w-1/2 flex flex-col bg-[#000000] overflow-hidden h-[72vh] lg:h-auto shrink-0">
             {/* Frame Controls Bar */}
             <div className="px-5 py-3 bg-[#09090B] border-b-2 border-[#3F3F46] flex flex-wrap items-center justify-between gap-2 shrink-0">
               {/* Interactive vs Screenshot mode switcher */}

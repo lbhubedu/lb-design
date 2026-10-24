@@ -48,12 +48,31 @@ export const App: React.FC = () => {
   const [activeModalItem, setActiveModalItem] = useState<PromptItem | null>(null);
   const [isHowToOpen, setIsHowToOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  // Versão light (fundo cinza claro) com persistência local
+  const [lightTheme, setLightTheme] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('lb_design_theme') === 'light';
+    } catch {
+      return false;
+    }
+  });
   const [toast, setToast] = useState<{ isVisible: boolean; message: string; subMessage?: string }>({
     isVisible: false,
     message: '',
   });
 
   const catalogSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', lightTheme);
+    try {
+      localStorage.setItem('lb_design_theme', lightTheme ? 'light' : 'dark');
+    } catch {
+      // localStorage indisponível: segue sem persistir
+    }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', lightTheme ? '#F4F4F5' : '#09090B');
+  }, [lightTheme]);
 
   // Load initial data
   useEffect(() => {
@@ -220,6 +239,8 @@ export const App: React.FC = () => {
         totalPrompts={catalog?.totalPrompts || 1317}
         totalDesignSystems={designSystems?.total || 148}
         favoriteCount={favorites.length}
+        lightTheme={lightTheme}
+        onToggleTheme={() => setLightTheme((v) => !v)}
         onOpenHowTo={() => setIsHowToOpen(true)}
       />
 

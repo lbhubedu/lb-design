@@ -59,6 +59,94 @@
   background: #dfe104;
 }
 
+/* ============================================================
+   TEMA CLARO (Versão Light) — fundo cinza claro
+   Ativado via classe .light no <html> (toggle no Header).
+   Remapeia as classes de cor fixas usadas nos componentes.
+   ============================================================ */
+.light body {
+  background-color: #f4f4f5;
+  color: #18181b;
+}
+
+/* Fundos */
+.light .bg-\[\#09090B\] {
+  background-color: #f4f4f5;
+}
+.light .bg-\[\#09090B\]\/95 {
+  background-color: rgba(244, 244, 245, 0.93);
+}
+.light .bg-\[\#18181B\] {
+  background-color: #ffffff;
+}
+.light .bg-\[\#27272A\] {
+  background-color: #ffffff;
+}
+.light .bg-\[\#27272A\]\/70 {
+  background-color: rgba(255, 255, 255, 0.78);
+}
+.light .bg-\[\#3F3F46\],
+.light .hover\:bg-\[\#3F3F46\]:hover {
+  background-color: #e4e4e7;
+}
+.light .bg-\[\#000000\] {
+  background-color: #e4e4e7;
+}
+.light .bg-\[\#FAFAFA\],
+.light .hover\:bg-\[\#FAFAFA\]:hover {
+  background-color: #e4e4e7;
+}
+.light .bg-black\/85 {
+  background-color: rgba(24, 24, 27, 0.5);
+}
+
+/* Textos */
+.light .text-\[\#FAFAFA\] {
+  color: #18181b;
+}
+.light .text-\[\#A1A1AA\] {
+  color: #52525b;
+}
+.light .text-\[\#A1A1AA\]\/50 {
+  color: rgba(82, 82, 91, 0.55);
+}
+.light .text-\[\#A1A1AA\]\/70 {
+  color: rgba(82, 82, 91, 0.72);
+}
+.light .text-\[\#DFE104\] {
+  color: #6e6e00;
+}
+.light .text-\[\#3F3F46\] {
+  color: #71717a;
+}
+.light .text-\[\#27272A\]\/20 {
+  color: rgba(24, 24, 27, 0.05);
+}
+
+/* Bordas */
+.light .border-\[\#3F3F46\] {
+  border-color: #d4d4d8;
+}
+
+/* Amarelo da marca volta ao original sobre elementos pretos */
+.light .bg-black.text-\[\#DFE104\] {
+  color: #dfe104;
+}
+.light .group:hover .group-hover\:text-\[\#DFE104\] {
+  color: #dfe104;
+}
+
+/* Scrollbar e ruído no claro */
+.light ::-webkit-scrollbar-track {
+  background: #e4e4e7;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #c8c8ce;
+}
+.light .opacity-\[0\.035\] {
+  opacity: 0.02;
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
